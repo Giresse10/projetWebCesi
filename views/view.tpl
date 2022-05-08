@@ -7,6 +7,11 @@
     <title>Document</title>
 </head>
 <body> 
-    ok
+    {{if !isset($smarty.session.status)}}
+    <div class="login">
+        <p>connexion</p>
+    </div>
+    {{else}}
+    {{/if}}
 </body>
 </html>
