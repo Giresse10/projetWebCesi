@@ -12,6 +12,7 @@
         <p>connexion</p>
     </div>
     {{else}}
+        {{include file_name="templates/header.tpl"}}
     {{/if}}
 </body>
 </html>
