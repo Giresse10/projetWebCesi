@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Red+Hat+Mono:wght@300&display=swap');
+body{
+    font-family: 'Lato', sans-serif;
+    font-family: 'Red Hat Mono', monospace;
+    /*background: url("../images/bg.png");*/
+    background-color: rgb(231, 218, 218);
+    box-sizing: content-box;
+    width: 100%;
+}
