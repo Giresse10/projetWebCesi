@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class CentreModel extends Model{
+class CompetencesModel extends Model{
     protected $id;
     protected $nom;
 
