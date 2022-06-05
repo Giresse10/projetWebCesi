@@ -88,8 +88,18 @@ class Form{
     /**
      * 
      */
-    public function getForm():string
+    public function beginBlock(array $attributes = []):self
     {
-        return $this->formCode;
+        $this->formCode .= "\t<div";
+        $this->formCode .= !empty($attributes)?$this->setAttribute($attributes).'>':'>';
+        return $this;
+    }
+    /**
+     * 
+     */
+    public function endBlock():self
+    {
+        $this->formCode .= "\t</div>";
+        return $this;
     }
 }

@@ -3,7 +3,9 @@ namespace App\Models;
 
 class OffresDeStageModel extends Model{
     protected $id;
-    protected $idCompetences;
+    protected $titre;
+    protected $description;
+    protected $idLocalite;
     protected $idEntreprise;
     protected $duree;
     protected $baseDeRemuneration;
@@ -21,6 +23,64 @@ class OffresDeStageModel extends Model{
     function setId($id){
         $this->id = $id;
         return $this;
+    }
+    /**
+     * set titre
+     */
+    function setTitre($titre){
+        $this->titre = $titre;
+        return $this;
+    }
+    /**
+     * set description
+     */
+    function setDescription($description){
+        $this->description = $description;
+        return $this;
+    }
+    /**
+     * set idLocalite
+     */
+    function setIdLocalite($idLocalite){
+        $this->idLocalite = $idLocalite;
+        return $this;
+    }
+    /**
+     * set idEntreprise
+     */
+    function setIdEntreprise($id){
+        $this->idEntreprise = $id;
+        return $this;
+    }
+    /**
+     * set duree
+     */
+    function setDuree($duree){
+        $this->duree = $duree;
+        return $this;
+    }
+    /**
+     * set BaseDeRemuneration
+     */
+    function setBaseDeRemuneration($base){
+        $this->baseDeRemuneration = $base;
+        return $this;
+    }
+    /**
+     *set date
+     */
+    function setDate($date){
+        $this->date = $date;
+        return $this;
+    }
+    /**
+     * set nbPlaces
+     */
+    public function setNbPlaces($nb){
+        $this->nbPlaces = $nb;
+        return $this;
+
+
     }
     /**
      * set createAt

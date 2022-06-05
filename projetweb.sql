@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : sam. 04 juin 2022 à 15:51
+-- Généré le : Dim 05 juin 2022 à 13:03
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.4.9
 
@@ -132,16 +132,27 @@ INSERT INTO `entreprises` (`id`, `nom`, `idSecteur`, `nbStagiaires`, `createdAt`
 -- --------------------------------------------------------
 
 --
--- Structure de la table `entreprisexlieux`
+-- Structure de la table `entreprisesxlocalites`
 --
 
-DROP TABLE IF EXISTS `entreprisexlieux`;
-CREATE TABLE IF NOT EXISTS `entreprisexlieux` (
+DROP TABLE IF EXISTS `entreprisesxlocalites`;
+CREATE TABLE IF NOT EXISTS `entreprisesxlocalites` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idEntreprises` int(11) NOT NULL,
-  `idLieux` int(11) NOT NULL,
+  `idLocalites` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `entreprisesxlocalites`
+--
+
+INSERT INTO `entreprisesxlocalites` (`id`, `idEntreprises`, `idLocalites`) VALUES
+(1, 1, 1),
+(2, 1, 3),
+(3, 1, 3),
+(4, 1, 4),
+(5, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -169,15 +180,26 @@ INSERT INTO `filiere` (`id`, `nom`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `lieux`
+-- Structure de la table `localites`
 --
 
-DROP TABLE IF EXISTS `lieux`;
-CREATE TABLE IF NOT EXISTS `lieux` (
-  `id` int(11) DEFAULT NULL,
+DROP TABLE IF EXISTS `localites`;
+CREATE TABLE IF NOT EXISTS `localites` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(100) NOT NULL,
-  `cp` int(20) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `cp` int(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `localites`
+--
+
+INSERT INTO `localites` (`id`, `nom`, `cp`) VALUES
+(1, 'Angouleme', 16000),
+(4, 'La Rochelle', 17000),
+(2, 'lyon', 69000),
+(5, 'Bordeaux', 33000);
 
 -- --------------------------------------------------------
 
@@ -188,7 +210,9 @@ CREATE TABLE IF NOT EXISTS `lieux` (
 DROP TABLE IF EXISTS `offresdestage`;
 CREATE TABLE IF NOT EXISTS `offresdestage` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `idCompetences` int(11) NOT NULL,
+  `titre` varchar(100) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `idLocalite` int(11) NOT NULL,
   `idEntreprise` int(11) NOT NULL,
   `duree` int(11) NOT NULL,
   `baseDeRemuneration` int(11) NOT NULL,
@@ -202,8 +226,22 @@ CREATE TABLE IF NOT EXISTS `offresdestage` (
 -- Déchargement des données de la table `offresdestage`
 --
 
-INSERT INTO `offresdestage` (`id`, `idCompetences`, `idEntreprise`, `duree`, `baseDeRemuneration`, `date`, `nbPlaces`, `createdAt`) VALUES
-(1, 1, 1, 1, 100, '2022-06-01', 5, '2022-06-04 17:40:09');
+INSERT INTO `offresdestage` (`id`, `titre`, `description`, `idLocalite`, `idEntreprise`, `duree`, `baseDeRemuneration`, `date`, `nbPlaces`, `createdAt`) VALUES
+(1, 'developpeur web', 'developpeur pour une Api Rest', 0, 1, 1, 100, '2022-06-01', 5, '2022-06-04 17:40:09');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `offresxcompetences`
+--
+
+DROP TABLE IF EXISTS `offresxcompetences`;
+CREATE TABLE IF NOT EXISTS `offresxcompetences` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idOffresDeStage` int(11) NOT NULL,
+  `idCompetences` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 

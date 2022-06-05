@@ -12,6 +12,13 @@ class EntreprisesModel extends Model{
     public function __construct(){
         $this->table = str_replace('Model', '', str_replace(__NAMESPACE__.'\\','',__CLASS__));
     }
+    /**
+     * set id
+     */
+    function setId($id){
+        $this->id = $id;
+        return $this;
+    }
     //Setters
     /**
      * set nom

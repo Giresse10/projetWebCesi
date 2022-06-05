@@ -8,17 +8,17 @@
             <div class="col-md-12 col-lg-2">
                 <ul class="nav flex-lg-column">
                     <li class="nav-item">
-                        <a role="button" class="nav-link text-center disabled border border-primary">
+                        <a role="button" class="nav-link text-center disabled border border-primary" id="btnCreateUser">
                             <i class="fa-solid fa-user me-2"></i>Utilisateur
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a role="button" class="nav-link">
+                        <a role="button" class="nav-link border-primary" id="btnCreateEntreprise">
                             <i class="fa-solid fa-building me-2"></i>Entreprise
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a role="button" class="nav-link">
+                        <a role="button" class="nav-link border-primary" id="btnCreateOffre">
                             <i class="fa-solid fa-briefcase me-2"></i>Offre de stage
                         </a>
                     </li>
@@ -26,7 +26,7 @@
             </div>
             <div class="col-md-12 col-lg-10 border rounded shadow">
                 {********** formulaire creation utilisateur ***************}
-                <div class="p-3">
+                <div class="p-3" id="createUserForm">
                     <form action="/users/register" method="post">
                         {********** choix status *****************}
                         {*** nom/prenom ****}
@@ -91,7 +91,93 @@
                             </div>
                         </div>
                     </form>
-                    {***********************************}
+                </div>
+                {***********************************}
+                {*** formulaire creer entreprise ******}
+                <div class="p-3" id="createEntrepriseForm">
+                    <form action="/entreprises/register" method="post">
+                    <div class="row g-3">
+                    <div class="col-12">
+                        <label for="entrepriseNom" class="form-label">Nom</label>
+                        <input type="text" class="form-control" id="entrepriseNom" name="entreprise_nom">
+                    </div>
+                    <div class="col-12">
+                        <label for="entrepriseSecteur" class="form-label">Secteur d'activité</label>
+                        <select class="form-select" aria-label="Default select example" id="entrepriseSecteur" name="entreprise_secteur">
+                            <option selected>Secteur d'activité</option>
+                            {foreach $secteurs as $s}
+                            <option value="{$s->id}">{$s->nom}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label for="entrepriseLoc" class="form-label">localité(s) </label>
+                        <select class="form-select" aria-label="Default select example" id="entrepriseLoc" name="entreprise_localite">
+                            <option selected>localité(s)</option>
+                            {foreach $localites as $l}
+                            <option value="{$l->id}">{$l->nom} - {$l->cp}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                    <div class="col-12 d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary px-5">
+                                    <i class="fa-solid fa-right-to-bracket"></i>
+                                </button>
+                            </div>
+                </div>
+                    </form>
+                </div>
+                {*************************************}
+                {*** formulaire de creation d'offre de stage***}
+                <div class="p-3" id="createOffreForm">
+                    <form action="/offres-de-stage/register" method="post">
+                        {********** choix status *****************}
+                        {*** nom/prenom ****}
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="usersNom" class="form-label">Titre</label>
+                                <input type="text" class="form-control" id="usersNom" name="offre_titre">
+                            </div>
+                            <div class="col-12">
+                                <label for="OffreDescription" class="form-label">Description</label>
+                                <textarea type="text" class="form-control" id="OffreDescription" name="offre_description"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <label for="offreEntreprise" class="form-label">Entreprise</label>
+                                <select class="form-select" aria-label="Default select example" id="offreEntreprise" name="offre_entreprise">
+                                    <option selected>Entreprises</option>
+                                    {foreach $entreprises as $e}
+                                    <option value="{$e->id}">{$e->nom}</option>
+                                    {/foreach}
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="offreDuree" class="form-label">Durée</label>
+                                <input type="text" class="form-control" id="offreDuree" name="offre_duree">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="offreDate" class="form-label">A partir du</label>
+                                <input type="text" class="form-control" id="offreDate" name="offre_date">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="offrePlaces" class="form-label">Places</label>
+                                <input type="text" class="form-control" id="offreBaseDeRemuneration" name="offre_nbPlaces">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="offreBaseDeRemuneration" class="form-label">Remuneration</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="offreBaseDeRemuneration" name="offre_baseDeRemuneration">
+                                    <span class="input-group-text">&euro;/heure</span>
+                                </div>
+                            </div>
+
+                            <div class="col-12 d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary px-5">
+                                    <i class="fa-solid fa-right-to-bracket"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

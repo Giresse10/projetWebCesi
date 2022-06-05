@@ -21,7 +21,7 @@
 
     <body>
 
-        <fieldset class="border p-3 rounded shadow" style="background-color: #eeeeee;" id="login-field">
+        <fieldset class="border p-3 rounded shadow border-success" style="background-color: #eeeeee;" id="login-field">
             <legend class="border rounded-circle p-3 bg-success"
                 style="float:none; width:auto ;margin-left: auto;margin-right: auto;">
                 <i class="fa fa-solid fa-user fa-3x text-light"></i>
