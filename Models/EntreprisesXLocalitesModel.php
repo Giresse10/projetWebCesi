@@ -43,4 +43,5 @@ class EntreprisesXLocalitesModel extends Model{
     function findWhere($id){
         return $this->q("SELECT x.idLocalites, l.nom FROM {$this->table} x JOIN Localites l ON x.idLocalites = l.id WHERE x.idEntreprises = ?", [$id])->fetchAll();
     }
+
 }

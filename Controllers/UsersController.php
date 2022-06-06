@@ -57,7 +57,7 @@ class UsersController extends Controller{
             ->addInput( 'submit', 'valider',['class' => 'btn btn-primary', 'name' => 'sub', 'id' => 'subId'])
             ->endForm();
 
-        $this->render('users/register.tpl',['f' => $form->getForm(),'s'=>$status??null]);
+        $this->render('users/register.tpl',['f' => $form->create(),'s'=>$status??null]);
     }
     /**
      * page de notifications

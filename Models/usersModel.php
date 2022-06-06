@@ -212,7 +212,7 @@ class usersModel extends Model{
         return $this->q("SELECT * FROM {$this->table} WHERE email=? OR pseudo=?", [$id, $id])->fetch();
     }
     function setSession(){
-        //$_SESSION['user']['id'] = $this->id;
+        $_SESSION['user']['id'] = $this->id;
         $_SESSION['user']['email'] = $this->email;
         $_SESSION['user']['prenom'] = $this->prenom;
         $_SESSION['user']['nom'] = $this->nom;

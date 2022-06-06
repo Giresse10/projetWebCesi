@@ -105,5 +105,23 @@ class OffresDeStageModel extends Model{
         return $this->createdAt;
     }
 
+    
+    //Registers
+    function register() {
+        if(!$this->findBy(['titre'=>$this->titre,'idEntreprise'=>$this->idEntreprise,'date'=>$this->date, 'duree'=>$this->duree, 'idLocalite'=>$this->idLocalite])){
+            $this->create();
+            return true;
+        }else{
+            return false;
+        }        
+    }
+
+    /**
+     * 
+     */
+    function findEntiere() {
+        return $this->q("SELECT o.*, e.nom AS entreprise, l.nom as localite, l.cp
+        FROM {$this->table} o INNER JOIN `entreprises` e ON o.idEntreprise = e.id INNER JOIN `localites` l ON o.idLocalite = l.id")->fetchAll();
+    }
 
 }

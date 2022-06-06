@@ -46,7 +46,7 @@
                             <div class="col-12">
                                 <label for="usersCentre" class="form-label">Centre</label>
                                 <select class="form-select" aria-label="Default select example" id="usersCentre" name="user_centre">
-                                    <option selected>Statut</option>
+                                    <option selected>Centre</option>
                                     {foreach $centre as $c}
                                     <option value="{$c->id}">{$c->nom}</option>
                                     {/foreach}
@@ -80,7 +80,7 @@
                                 <option selected disabled>filière</option>
                                 {foreach $filiere as $f}
                                     <option value="{$f->id}">{$f->nom}</option>
-                                    {/foreach}
+                                {/foreach}
                                 </select>
                             </div>
 
@@ -153,20 +153,20 @@
                             </div>
                             <div class="col-md-3">
                                 <label for="offreDuree" class="form-label">Durée</label>
-                                <input type="text" class="form-control" id="offreDuree" name="offre_duree">
+                                <input type="number" class="form-control" id="offreDuree" name="offre_duree">
                             </div>
                             <div class="col-md-4">
                                 <label for="offreDate" class="form-label">A partir du</label>
-                                <input type="text" class="form-control" id="offreDate" name="offre_date">
+                                <input type="date" class="form-control" id="offreDate" name="offre_date">
                             </div>
                             <div class="col-md-2">
                                 <label for="offrePlaces" class="form-label">Places</label>
-                                <input type="text" class="form-control" id="offreBaseDeRemuneration" name="offre_nbPlaces">
+                                <input type="number" class="form-control" id="offreBaseDeRemuneration" name="offre_nbPlaces">
                             </div>
                             <div class="col-md-3">
                                 <label for="offreBaseDeRemuneration" class="form-label">Remuneration</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="offreBaseDeRemuneration" name="offre_baseDeRemuneration">
+                                    <input type="number" class="form-control" id="offreBaseDeRemuneration" name="offre_baseDeRemuneration">
                                     <span class="input-group-text">&euro;/heure</span>
                                 </div>
                             </div>

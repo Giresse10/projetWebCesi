@@ -79,14 +79,15 @@ class EntreprisesModel extends Model{
     function getCreatedAt() {
         return $this->createdAt;
     }
-    //Register
+    //Registers
     function register() {
         if(!$this->findBy(['nom'=>$this->nom])){
             $this->create();
-            return true;
+            $m = $this->findBy(['nom'=>$this->nom]);
+            return $m[0]->id;
         }else{
             return false;
-        }        
-    }
+        } 
+    } 
 
 }
