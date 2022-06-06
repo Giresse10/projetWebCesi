@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : Dim 05 juin 2022 à 13:03
+-- Généré le : lun. 06 juin 2022 à 21:01
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.4.9
 
@@ -116,10 +116,10 @@ CREATE TABLE IF NOT EXISTS `entreprises` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(100) NOT NULL,
   `idSecteur` int(11) NOT NULL,
-  `nbStagiaires` int(11) NOT NULL,
+  `nbStagiaires` int(11) NOT NULL DEFAULT '0',
   `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `entreprises`
@@ -127,7 +127,10 @@ CREATE TABLE IF NOT EXISTS `entreprises` (
 
 INSERT INTO `entreprises` (`id`, `nom`, `idSecteur`, `nbStagiaires`, `createdAt`) VALUES
 (1, 'Microsoft', 3, 5, '2022-06-04 01:01:11'),
-(2, 'Google', 3, 4, '2022-06-04 01:01:11');
+(2, 'Google', 3, 4, '2022-06-04 01:01:11'),
+(3, 'Amazon', 2, 0, '2022-06-05 22:50:25'),
+(4, 'Qug', 1, 0, '2022-06-05 22:53:13'),
+(5, 'RaRible', 3, 0, '2022-06-06 00:06:53');
 
 -- --------------------------------------------------------
 
@@ -141,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `entreprisesxlocalites` (
   `idEntreprises` int(11) NOT NULL,
   `idLocalites` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `entreprisesxlocalites`
@@ -152,7 +155,11 @@ INSERT INTO `entreprisesxlocalites` (`id`, `idEntreprises`, `idLocalites`) VALUE
 (2, 1, 3),
 (3, 1, 3),
 (4, 1, 4),
-(5, 1, 5);
+(5, 1, 5),
+(6, 2, 1),
+(7, 3, 2),
+(8, 4, 2),
+(9, 5, 4);
 
 -- --------------------------------------------------------
 
@@ -220,14 +227,19 @@ CREATE TABLE IF NOT EXISTS `offresdestage` (
   `nbPlaces` int(11) NOT NULL,
   `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `offresdestage`
 --
 
 INSERT INTO `offresdestage` (`id`, `titre`, `description`, `idLocalite`, `idEntreprise`, `duree`, `baseDeRemuneration`, `date`, `nbPlaces`, `createdAt`) VALUES
-(1, 'developpeur web', 'developpeur pour une Api Rest', 0, 1, 1, 100, '2022-06-01', 5, '2022-06-04 17:40:09');
+(1, 'developpeur web', 'developpeur pour une Api Rest', 0, 1, 1, 100, '2022-06-01', 5, '2022-06-04 17:40:09'),
+(2, 'titre', 'hhhh', 1, 1, 1, 11, '2022-06-01', 11, '2022-06-05 16:36:48'),
+(3, 'ok', 'bbbbb', 4, 1, 1, 10, '2022-06-08', 10, '2022-06-06 01:37:04'),
+(4, 'Administrateur reseau', 'Voici une offre pour les adeptes du reseau', 1, 1, 3, 3, '2022-06-12', 5, '2022-06-06 13:50:18'),
+(5, 'Projet Web', 'Pour un projet', 4, 1, 1, 5, '2022-06-05', 2, '2022-06-06 22:04:09'),
+(6, 'titre', 'fff', 2, 3, 1, 3, '2022-06-11', 2, '2022-06-06 22:19:36');
 
 -- --------------------------------------------------------
 
@@ -330,7 +342,7 @@ CREATE TABLE IF NOT EXISTS `wishlist` (
   `idUsers` int(11) NOT NULL,
   `idOffresDeStage` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
