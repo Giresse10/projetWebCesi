@@ -53,6 +53,11 @@
       left:50%;
       transform:translate(-50%, -50%);
   }
+.offre-items:hover{
+  border: 2px solid var(--bs-primary)!important;
+  transform: scale(1.03);
+}
+/**************media query ***********************/
 @media (min-width: 1128px){
     #login-field{
         width:30%;

@@ -57,13 +57,13 @@ creation de {$nom}
     {else}
         <div class="card mx-auto shadow" style="max-width:500px;">
         <div class="card-header p-0">
-            <div class="alert alert-success m-0">
-                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#check-circle-fill"/></svg>
+            <div class="alert alert-danger m-0">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                 Erreur de creation
             </div>
         </div>
         <div class="card-body">
-             <div class="text-success">Il semble qu'une offre de stage existe déjà avec les même données </div>
+             <div class="text-danger">Il semble qu'une offre de stage existe déjà avec les même données </div>
             <div class="border-bottom text-white bg-dark text-center mt-2 mb-1 border-success">Titre </div>
             <span class="text-center">{$titre}</span>
             <div class="border-bottom text-white bg-dark text-center mt-2 mb-1 border-success">Description </div>

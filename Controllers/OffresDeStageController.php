@@ -4,12 +4,22 @@ namespace App\Controllers;
 use App\Core\Form;
 use App\Models\EntreprisesXLocalitesModel;
 use App\Models\OffresDeStageModel;
+use App\Models\WishListModel;
 
 class OffresDeStageController extends Controller {
 
     public function index() {
+        $wishlist = new WishListModel;
         $offresModel = new OffresDeStageModel;
         $offres = $offresModel->findEntiere();
+        //liste des offres dans wishlist
+        if(isset($_SESSION['user'])){
+            foreach($offres as $o){
+                $w = $wishlist->hydrate(['idOffresDeStage'=>$o->id, 'idUsers'=>$_SESSION['user']['id']]);
+                $w = $wishlist->findSelfWishlist();
+                $o->is_wishlist = $w;
+            }
+        }
         $this->render('offres/index.tpl', compact('offres'));
     }
 
@@ -58,13 +68,20 @@ class OffresDeStageController extends Controller {
                 $f = $form->create();
             }else{
                 $idLocalite = $localites[0]->idLocalites;
-                $model->hydrate(compact('idLocatite'));
-                $model->register();
-                $_SESSION['state']['type'] = 'offre';
-                $_SESSION['state']['titre'] = $titre;
-                $_SESSION['state']['description'] = $description;
-                $_SESSION['state']['status'] = true;
-                header('Location:/create/register');
+                $model->hydrate(compact('titre','description','idLocalite','idEntreprise','duree','baseDeRemuneration','date','nbPlaces'));
+                if($model->register()){
+                    $_SESSION['state']['type'] = 'offre';
+                    $_SESSION['state']['titre'] = $titre;
+                    $_SESSION['state']['description'] = $description;
+                    $_SESSION['state']['status'] = true;
+                    header('Location:/create/register');
+                }else{
+                    $_SESSION['state']['type'] = 'offre';
+                    $_SESSION['state']['titre'] = $titre;
+                    $_SESSION['state']['description'] = $description;
+                    $_SESSION['state']['status'] = false;
+                    header('Location:/create/register');
+                }
             }
         }
         if(Form::validate($_POST, ['titre','description','idEntreprise','duree','baseDeRemuneration','date','nbPlaces','offre_localite'])){

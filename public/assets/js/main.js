@@ -30,7 +30,52 @@ $(
           $('#createUserForm').hide();
           $('#createEntrepriseForm').hide();
           $('#createOffreForm').show('slow');
-        })
+        });
         //________________________________________
+        
+        //______________WhishList/Ajax_____________________
+        $(".likedForm").submit(function(e){
+          e.preventDefault(); //empêcher une action par défaut
+          var form_url = $(this).attr("action"); //récupérer l'URL du formulaire
+          var form_method = $(this).attr("method"); //récupérer la méthode GET/POST du formulaire
+          form_data={};
+          $(this).find('[name]').each(function(index, value) {
+          var that=$(this),
+          name=that.attr('name'),
+          value=that.val();
+          form_data[name]=value;
+          });
+          var id = $(this).attr("id");
+          $.ajax({
+            url : form_url,
+            type: form_method,
+            data: form_data,
+
+          }).done(function(response){ 
+            $(`#${id} .followStatus`).children().toggleClass('fa-solid fa-regular border-3').fadeIn('slow');
+          });
+        });
+        //___________Wishlist/for dismiss________
+        $(".likedWishForm").submit(function(e){
+          e.preventDefault(); //empêcher une action par défaut
+          var form_url = $(this).attr("action"); //récupérer l'URL du formulaire
+          var form_method = $(this).attr("method"); //récupérer la méthode GET/POST du formulaire
+          form_data={};
+          $(this).find('[name]').each(function(index, value) {
+          var that=$(this),
+          name=that.attr('name'),
+          value=that.val();
+          form_data[name]=value;
+          });
+          var id = $(this).attr("id");
+          $.ajax({
+            url : form_url,
+            type: form_method,
+            data: form_data,
+
+          }).done(function(response){ 
+            $(`#${id}-field`).hide('slow');
+          });
+        });
     }
 )

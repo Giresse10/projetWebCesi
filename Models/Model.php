@@ -30,7 +30,7 @@ class Model extends Db
         $champs = [];
         $valeurs = [];
         foreach ($criteres as $champ => $valeur) {
-            $champs[] = "$champ = ?";
+            $champs[] = " $champ = ? ";
             $valeurs[] = $valeur;
         }
         $lst_champs = implode('AND', $champs);

@@ -76,7 +76,8 @@
                                     <a role="button" class="nav-link" id="dropdownUserbtn" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-user text-dark"></i></a>
                                     <ul class="dropdown-menu dropdown-menu-end rounded-0 border-0 mt-2 " aria-labelledby="dropdownUserbtn">
                                         <li><a class="dropdown-item border-bottom" href="/users/profil">Profil</a></li>
-                                        <li><a class="dropdown-item border-bottom" href="#">Another action</a></li>
+                                        <li><a class="dropdown-item border-bottom" href="/candidatures">Mes candidatures</a></li>
+                                        <li><a class="dropdown-item border-bottom" href="/wish-list">Wish List</a></li>
                                         <li><a class="dropdown-item border-bottom" href="/main/logout">Deconnexion</a></li>
                                     </ul>
                                 </div>
