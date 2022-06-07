@@ -38,8 +38,8 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    {*********** search bar ***********}
-                    <div class="mx-5" id="headSearch">
+                    {*********** search bar/only large screen***********}
+                    <div class="mx-5 d-sm-none" id="headSearch">
                         <form>
                             <div class="input-group shadow">
                                 <input class="form-control" type="search" placeholder="Rechercher..."
@@ -48,7 +48,7 @@
                                     formaction="/search"><i class="fa-solid fa-search p-1"></i></button>
                             </div>
                         </form>
-                        {*<div style="height:200px; position:absolute;" class="border w-50"></div>*}
+                        <div style="height:200px; position:absolute;" class="border w-50"></div>
                     </div>
                     {**********************************}
                     {************* Menu ***************}
