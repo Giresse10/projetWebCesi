@@ -8,10 +8,16 @@ use App\Models\EntreprisesXLocalitesModel;
 class EntreprisesController extends Controller{
     public function index(){
         $entreprises = new EntreprisesModel;
-        $lstEnt = $entreprises->findAll();
+        $exl = new EntreprisesXLocalitesModel;
+        $lstEnt = $entreprises->findEntiere();
+        foreach ($lstEnt as $l){
+            $l->nb_etablissements = $exl->findHow($l->id)->nb;
+        }
         $this->render('entreprises/index.tpl', compact('lstEnt'));
     }
-
+    /**
+     * register
+     */
     public function register(){
         if(Form::validate($_POST, ['entreprise_nom','entreprise_secteur','entreprise_localite'])){
             $nom = strip_tags($_POST['entreprise_nom']);

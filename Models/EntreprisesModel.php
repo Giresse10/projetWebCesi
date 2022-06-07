@@ -88,6 +88,12 @@ class EntreprisesModel extends Model{
         }else{
             return false;
         } 
-    } 
+    }
+    /**
+     * entiere 
+     */
+    function findEntiere() {
+        return $this->q("SELECT e.*, s.nom AS secteur FROM {$this->table} e INNER JOIN `secteurs` s ON e.idSecteur = s.id")->fetchAll();
+    }
 
 }

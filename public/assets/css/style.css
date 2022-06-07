@@ -53,9 +53,15 @@
       left:50%;
       transform:translate(-50%, -50%);
   }
+/**************** page offres ****************/
 .offre-items:hover{
   border: 2px solid var(--bs-primary)!important;
   transform: scale(1.03);
+}
+/**************** page entreprises ****************/
+.entreprise-items:hover{
+  background-color: rgba(100, 100, 255, 0.1);
+  transform: translateY(-5px);
 }
 /**************media query ***********************/
 @media (min-width: 1128px){
