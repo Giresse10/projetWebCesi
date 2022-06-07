@@ -77,5 +77,50 @@ creation de {$nom}
         <li class="nav-item text-center"><a href="/" class="nav-link">Page d'accueil</a></li>
     </ul>
 {/if}
+{********************************}
+{if $type eq "user"}
+    {if $status}
+    <div class="card mx-auto shadow" style="max-width:500px;">
+        <div class="card-header p-0">
+            <div class="alert alert-success m-0">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                Succès
+            </div>
+        </div>
+        <div class="card-body">
+             <div class="text-success">Nouvel utilisateur enregistrer avec succès</div>
+            <div class="border-bottom text-white bg-dark text-center mt-2 mb-1 border-success">Information de l'utilisateur </div>
+            <div class="text-primary">status : <span class="text-muted">{$statut->nom}</span></div>
+            <div class="text-primary">Prenom : <span class="text-muted">{$prenom}</span></div>
+            <div class="text-primary">Nom : <span class="text-muted">{$nom}</span></div>
+            <div class="border p-2 bg-dark">
+            <div class="text-primary">Identifiant : <span class="text-white">{$email}</span></div>
+            <div class="text-primary">Mot de passe : <span class="text-white">{$password}</span></div>
+            </div>
+        </div>
+    </div>
+    {else}
+        <div class="card mx-auto shadow" style="max-width:500px;">
+        <div class="card-header p-0">
+            <div class="alert alert-danger m-0">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                Erreur de creation
+            </div>
+        </div>
+        <div class="card-body">
+        <div class="border-bottom text-white bg-dark text-center mt-2 mb-1 border-success">Information de l'utilisateur </div>
+        <div class="text-primary">status : <span class="text-muted">{$statut->nom}</span></div>
+        <div class="text-primary">Prenom : <span class="text-muted">{$prenom}</span></div>
+        <div class="text-primary">Nom : <span class="text-muted">{$nom}</span></div>
+        </div>
+    </div>
+    {/if}
+    <ul class="nav nav-flex flex-column mx-auto">
+        <li class="nav-item text-center"><a href="/create" class="nav-link">Retour au menu de creation</a></li>
+        <li class="nav-item text-center"><a href="/users" class="nav-link">Liste des utilisateurs</a></li>
+        <li class="nav-item text-center"><a href="/" class="nav-link">Page d'accueil</a></li>
+    </ul>
+{/if}
+{********************************}
 </div>
 {/block}

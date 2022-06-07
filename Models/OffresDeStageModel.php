@@ -123,5 +123,16 @@ class OffresDeStageModel extends Model{
         return $this->q("SELECT o.*, e.nom AS entreprise, l.nom as localite, l.cp
         FROM {$this->table} o INNER JOIN `entreprises` e ON o.idEntreprise = e.id INNER JOIN `localites` l ON o.idLocalite = l.id")->fetchAll();
     }
+    /**
+     * remove
+     */
+    function remove() {
+        if($this->findBy(['id'=>$this->id])){
+            $this->delete(['id'=>$this->id]);
+            return true;
+        }else{
+            return false;
+        }        
+    }
 
 }

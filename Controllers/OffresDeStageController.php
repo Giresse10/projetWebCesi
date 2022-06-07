@@ -26,7 +26,9 @@ class OffresDeStageController extends Controller {
     public function lire() {
         $this->render('offres/lire.tpl');
     }
-
+    /**
+     * Register
+     */
     public function register(){
 
         $f = '';
@@ -111,7 +113,18 @@ class OffresDeStageController extends Controller {
                 header('Location:/create/register');
             }
         }
-
+        
         $this->render('offres/register.tpl',compact('f'));
+    }
+    /**
+     * delete
+     */
+    public function delete(){
+        if(Form::validate($_POST, ['offre'])){
+            $id = strip_tags($_POST['offre']);
+            $model = new OffresDeStageModel;
+            $model->hydrate(compact('id'));
+            $model->remove();
+        }
     }
 }

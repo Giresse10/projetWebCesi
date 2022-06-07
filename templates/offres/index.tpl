@@ -5,7 +5,7 @@
 {block name="content"}
     <div class="mt-3 row row-cols-lg-3 row-cols-1 justify-content-center">
         {foreach $offres as $f}
-            <div class="rounded shadow-sm p-3 my-1 border offre-items col mx-2" style="max-width:500px;" role="button">
+            <div class="rounded shadow-sm p-3 my-1 border offre-items col mx-2" style="max-width:500px;" role="button" id="offre-item-{$f->id}">
                 {********** titre de l'offre *******}
                 <div class="d-flex justify-content-between">
                     <h3>{$f->titre}</h3>
@@ -95,10 +95,10 @@
                                         </div>
                                         <div class="d-flex justify-content-between">
                                             {********** formulaire de suppression *****}
-                                            <form method="post" action="/offres-de-stage/delete" class="DeleteForm"
+                                            <form method="post" action="/offres-de-stage/delete" class="deleteFormOffre"
                                                 id="delete-{$f->id}">
                                                 <input type="hidden" name="offre" value="{$f->id}" />
-                                                <button class="btn btn-primary">Confirmer</button>
+                                                <button class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Confirmer</button>
                                                 </form>
                                                 <button class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Annuler</button>
                                         </div>

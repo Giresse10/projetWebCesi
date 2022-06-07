@@ -77,7 +77,7 @@ class Model extends Db
         $valeurs = [];
         foreach ($model as $champ => $valeur) {
             if ($valeur !== null && $champ !== 'db' && $champ !== 'table') {
-                $champs[] = "$champ = ?";
+                $champs[] = " $champ = ?";
                 $valeurs[] = $valeur;
             }
         }
@@ -85,6 +85,20 @@ class Model extends Db
         $lst_champs = implode(', ', $champs);
         $sql = "UPDATE $this->table SET $lst_champs WHERE id = ?";
         $this->q($sql, $valeurs);
+    }
+
+    public function delete(array $criteres)
+    {
+        $champs = [];
+        $valeurs = [];
+        foreach ($criteres as $champ => $valeur) {
+            $champs[] = " $champ = ? ";
+            $valeurs[] = $valeur;
+        }
+        $lst_champs = implode('AND', $champs);
+        $sql = "DELETE FROM $this->table WHERE $lst_champs";
+        $tab = $this->q($sql, $valeurs);
+        return $tab->fetchAll();
     }
 
     protected function q(string $sql, array $attributs = null)

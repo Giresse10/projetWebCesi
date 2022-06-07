@@ -30,11 +30,15 @@ class CreateController extends Controller {
     function register(){
         $type = $_SESSION['state']['type'] ?? "";
         $nom = $_SESSION['state']['nom'] ?? "";
+        $prenom = $_SESSION['state']['prenom'] ?? "";
+        $email = $_SESSION['state']['email'] ?? "";
+        $statut = $_SESSION['state']['statut'] ?? "";
+        $password = $_SESSION['state']['password'] ?? "";
         $titre = $_SESSION['state']['titre'] ?? "";
         $description = $_SESSION['state']['description'] ?? "";
         $status = $_SESSION['state']['status'] ?? "";
         unset($_SESSION['state']);
         $this->render('create/register.tpl',
-        compact('nom','status','type','titre' ,'description'));
+        compact('nom','status','type','titre' ,'description', 'password', 'email', 'statut', 'prenom'));
     }
 }

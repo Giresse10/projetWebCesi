@@ -95,5 +95,18 @@ class EntreprisesModel extends Model{
     function findEntiere() {
         return $this->q("SELECT e.*, s.nom AS secteur FROM {$this->table} e INNER JOIN `secteurs` s ON e.idSecteur = s.id")->fetchAll();
     }
+    /**
+     * remove
+     */
+    function remove() {
+        if($this->findBy(['id'=>$this->id])){
+            $this->delete(['id'=>$this->id]);
+            $this->q("DELETE FROM entreprisesXlocalites WHERE idEntreprises = $this->id");
+            $this->q("DELETE FROM offresdestage WHERE idEntreprise = $this->id");
+            return true;
+        }else{
+            return false;
+        }        
+    }
 
 }

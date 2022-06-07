@@ -2,6 +2,7 @@
 namespace App\Controllers;
 use App\Core\Form;
 use App\Models\usersModel;
+use App\Models\StatusModel;
 
 class UsersController extends Controller{
     
@@ -40,10 +41,29 @@ class UsersController extends Controller{
             $model->setEmail($model->genererEmail($idStatus));
             var_dump($model);
             echo $pass;
-            /*$is_created = $model->register();
+            $is_created = $model->register();
+            var_dump($is_created);
+            $status = new StatusModel;
+            $st = $status->findBy(['id'=>$model->getIdStatus()]);
             if($is_created){
-
-            }*/
+                $_SESSION['state']['type'] = 'user';
+                $_SESSION['state']['status'] = true;
+                $_SESSION['state']['statut'] = $st[0];
+                $_SESSION['state']['nom'] = $nom;
+                $_SESSION['state']['email'] = $model->getEmail();
+                $_SESSION['state']['prenom'] = $prenom;
+                $_SESSION['state']['password'] = $pass;
+                header("Location:/create/register");
+            }else{
+                $_SESSION['state']['type'] = 'user';
+                $_SESSION['state']['status'] = true;
+                $_SESSION['state']['statut'] = $st[0];
+                $_SESSION['state']['nom'] = $nom;
+                $_SESSION['state']['prenom'] = $prenom;
+                $_SESSION['state']['email'] = $model->getEmail();
+                $_SESSION['state']['password'] = $pass;
+                header("Location:/create/register");
+            }
 
         }
         $form = new Form();

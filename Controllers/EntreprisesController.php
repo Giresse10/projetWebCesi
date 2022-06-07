@@ -43,4 +43,16 @@ class EntreprisesController extends Controller{
         }
         $this->render('entreprises/register.tpl');
     }
+
+    /**
+     * delete
+     */
+    public function delete(){
+        if(Form::validate($_POST, ['entreprise'])){
+            $id = strip_tags($_POST['entreprise']);
+            $model = new EntreprisesModel;
+            $model->hydrate(compact('id'));
+            $model->remove();
+        }
+    }
 }

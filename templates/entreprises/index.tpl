@@ -6,7 +6,7 @@
     <h3 class="text-center text-muted">Liste des entreprises</h3>
     <div class="row row-cols-1 row-cols-lg-5 mt-2 justify-content-center">
         {foreach $lstEnt as $e}
-            <div class="col m-2 p-2 border shadow entreprise-items" role="button">
+            <div class="col m-2 p-2 border shadow entreprise-items" role="button" id="entreprise-item-{$e->id}">
                 {********** titre de l'offre *******}
                 <div class="d-flex justify-content-between">
                     <h3>{$e->nom}</h3>
@@ -64,9 +64,9 @@
                             </div>
                             <div class="d-flex justify-content-between">
                                 {********** formulaire de suppression *****}
-                                <form method="post" action="/entreprises/delete" class="DeleteForm" id="delete-{$e->id}">
-                                    <input type="hidden" name="offre" value="{$e->id}" />
-                                    <button class="btn btn-primary">Confirmer</button>
+                                <form method="post" action="/entreprises/delete" class="DeleteFormEntreprise" id="delete-{$e->id}">
+                                    <input type="hidden" name="entreprise" value="{$e->id}" />
+                                    <button class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Confirmer</button>
                                 </form>
                                 <button class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Annuler</button>
                             </div>

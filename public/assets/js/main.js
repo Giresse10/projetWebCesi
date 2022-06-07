@@ -77,5 +77,49 @@ $(
             $(`#${id}-field`).hide('slow');
           });
         });
+        //___________ offresDeStage/ delete ________
+        $(".deleteFormOffre").submit(function(e){
+          e.preventDefault(); //empêcher une action par défaut
+          var form_url = $(this).attr("action"); //récupérer l'URL du formulaire
+          var form_method = $(this).attr("method"); //récupérer la méthode GET/POST du formulaire
+          form_data={};
+          $(this).find('[name]').each(function(index, value) {
+          var that=$(this),
+          name=that.attr('name'),
+          value=that.val();
+          form_data[name]=value;
+          });
+          var id = $(this).attr("id").replace( /^\D+/g, '');
+          $.ajax({
+            url : form_url,
+            type: form_method,
+            data: form_data,
+
+          }).done(function(response){ 
+           $(`#offre-item-${id}`).hide('slow');
+          });
+        });
+        //___________ entreprise/ delete ________
+        $(".DeleteFormEntreprise").submit(function(e){
+          e.preventDefault(); //empêcher une action par défaut
+          var form_url = $(this).attr("action"); //récupérer l'URL du formulaire
+          var form_method = $(this).attr("method"); //récupérer la méthode GET/POST du formulaire
+          form_data={};
+          $(this).find('[name]').each(function(index, value) {
+          var that=$(this),
+          name=that.attr('name'),
+          value=that.val();
+          form_data[name]=value;
+          });
+          var id = $(this).attr("id").replace( /^\D+/g, '');
+          $.ajax({
+            url : form_url,
+            type: form_method,
+            data: form_data,
+
+          }).done(function(response){ 
+           $(`#entreprise-item-${id}`).fadeOut('slow');
+          });
+        });
     }
 )

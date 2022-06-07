@@ -157,6 +157,12 @@ class usersModel extends Model{
     /**
      * id
      */
+    function getIdStatus() {
+        return $this->idStatus;
+    }
+    /**
+     * id
+     */
     function getIdFiliere() {
         return $this->idFiliere;
     }

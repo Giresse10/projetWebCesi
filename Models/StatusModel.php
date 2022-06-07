@@ -9,4 +9,8 @@ class StatusModel extends Model{
     public function __construct(){
         $this->table = str_replace('Model', '', str_replace(__NAMESPACE__.'\\','',__CLASS__));
     }
+    
+    public function getName(){
+        return $this->nom;
+    }
 }
