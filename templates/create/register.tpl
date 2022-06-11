@@ -32,7 +32,7 @@ creation de {$nom}
         </div>
     {/if}
     <ul class="nav nav-flex flex-column mx-auto">
-        <li class="nav-item text-center"><a href="/create" class="nav-link">Retour au menu de creation</a></li>
+        <li class="nav-item text-center"><a href="/create#createEntrepriseForm" class="nav-link">Retour au menu de creation</a></li>
         <li class="nav-item text-center"><a href="/entreprises" class="nav-link">Liste des entreprise</a></li>
         <li class="nav-item text-center"><a href="/" class="nav-link">Page d'accueil</a></li>
     </ul>
@@ -72,7 +72,7 @@ creation de {$nom}
     </div>
     {/if}
     <ul class="nav nav-flex flex-column mx-auto">
-        <li class="nav-item text-center"><a href="/create" class="nav-link">Retour au menu de creation</a></li>
+        <li class="nav-item text-center"><a href="/create#createOffreForm" class="nav-link">Retour au menu de creation</a></li>
         <li class="nav-item text-center"><a href="/offres-de-stage" class="nav-link">Liste des offres de stage</a></li>
         <li class="nav-item text-center"><a href="/" class="nav-link">Page d'accueil</a></li>
     </ul>
@@ -116,7 +116,7 @@ creation de {$nom}
     </div>
     {/if}
     <ul class="nav nav-flex flex-column mx-auto">
-        <li class="nav-item text-center"><a href="/create" class="nav-link">Retour au menu de creation</a></li>
+        <li class="nav-item text-center"><a href="/create#createUserForm" class="nav-link">Retour au menu de creation</a></li>
         <li class="nav-item text-center"><a href="/users" class="nav-link">Liste des utilisateurs</a></li>
         <li class="nav-item text-center"><a href="/" class="nav-link">Page d'accueil</a></li>
     </ul>

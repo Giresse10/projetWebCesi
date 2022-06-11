@@ -115,7 +115,13 @@ class OffresDeStageModel extends Model{
             return false;
         }        
     }
-
+    /**
+     * 
+     */
+    function findOne($id) {
+        return $this->q("SELECT o.*, e.nom AS entreprise, l.nom as localite, l.cp
+        FROM {$this->table} o INNER JOIN `entreprises` e ON o.idEntreprise = e.id INNER JOIN `localites` l ON o.idLocalite = l.id WHERE o.id = {$id}")->fetchAll();
+    }
     /**
      * 
      */

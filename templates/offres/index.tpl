@@ -33,7 +33,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="dropdownMenuEditor">
-                                    <li><a class="dropdown-item" href="offres-de-stage/edit/{$f->id}"><i
+                                    <li><a class="dropdown-item" href="/offres-de-stage/edit/{$f->id}"><i
                                                 class="fa-solid fa-pen-to-square"></i> Modifier</a></li>
                                     <li>
                                         <button class="dropdown-item" data-bs-toggle="modal"
@@ -110,6 +110,7 @@
         </div>
         {************ Pagination **********************}
         <div class="justify-content-center d-flex mt-auto">
+        {if $smarty.get.page*5 <  $nbOffres} 
         <nav aria-label="Page navigation Offre de stagegit" >
             <ul class="pagination">
             <li class="page-item">
@@ -118,17 +119,19 @@
                     <span aria-hidden="true">&laquo;</span>
                 </a>
                 </li>
-
-                {for $nb = 0 to $nbOffres step 5}
+                {for $nb = 0 to $nbOffres-1 step 5}
                 <li class="page-item"><a class="page-link {if $smarty.get.page eq $nb/5} active {/if}" 
                     href="/offres-de-stage/{$nb/5}">{$nb/5+1}</a></li>
                 {/for}
                 <li class="page-item">
-                <a class="page-link {if $smarty.get.page*10 > $nbOffres } disabled {/if}" href="/offres-de-stage/{$smarty.get.page + 1}" aria-label="Next">
+                <a class="page-link {if $smarty.get.page*10 > $nbOffres-1 } disabled {/if}" href="/offres-de-stage/{$smarty.get.page + 1}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
                 </li>
             </ul>
         </nav>
+        {else}
+        <h2 class="text-muted">Oops! out of range</h2>
+        {/if}
         </div>
 {/block}

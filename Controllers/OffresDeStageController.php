@@ -120,6 +120,14 @@ class OffresDeStageController extends Controller {
         $this->render('offres/register.tpl',compact('f'));
     }
     /**
+     * edit
+     */
+    public function edit($id){
+        $offresModel = new OffresDeStageModel;
+        $offre = $offresModel->findOne($id);
+        $this->render('offres/edit.tpl', compact('offre'));
+    }
+    /**
      * delete
      */
     public function delete(){
