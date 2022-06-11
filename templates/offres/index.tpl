@@ -107,5 +107,28 @@
                             </div>
                         </div>
         {/foreach}
-    </div>
+        </div>
+        {************ Pagination **********************}
+        <div class="justify-content-center d-flex mt-auto">
+        <nav aria-label="Page navigation Offre de stagegit" >
+            <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link {if $smarty.get.page eq 0} disabled {/if}" 
+                    href="/offres-de-stage/{$smarty.get.page - 1}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+                </li>
+
+                {for $nb = 0 to $nbOffres step 5}
+                <li class="page-item"><a class="page-link {if $smarty.get.page eq $nb/5} active {/if}" 
+                    href="/offres-de-stage/{$nb/5+1}">{$nb/5+1}</a></li>
+                {/for}
+                <li class="page-item">
+                <a class="page-link {if $smarty.get.page*10 > $nbOffres } disabled {/if}" href="/offres-de-stage/{$smarty.get.page + 1}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+                </li>
+            </ul>
+        </nav>
+        </div>
 {/block}

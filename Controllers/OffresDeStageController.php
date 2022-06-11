@@ -8,10 +8,13 @@ use App\Models\WishListModel;
 
 class OffresDeStageController extends Controller {
 
-    public function index() {
+    public function index($p = 0) {
+        //get pour la Pagination
+        $_GET['page'] = $p;
         $wishlist = new WishListModel;
         $offresModel = new OffresDeStageModel;
-        $offres = $offresModel->findEntiere();
+        $offres = $offresModel->findFrom($p*5);
+        $nbOffres = $offresModel->lines();
         //liste des offres dans wishlist
         if(isset($_SESSION['user'])){
             foreach($offres as $o){
@@ -20,7 +23,7 @@ class OffresDeStageController extends Controller {
                 $o->is_wishlist = $w;
             }
         }
-        $this->render('offres/index.tpl', compact('offres'));
+        $this->render('offres/index.tpl', compact('offres','nbOffres'));
     }
 
     public function lire() {

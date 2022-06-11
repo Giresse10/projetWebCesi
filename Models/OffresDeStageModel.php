@@ -123,6 +123,20 @@ class OffresDeStageModel extends Model{
         return $this->q("SELECT o.*, e.nom AS entreprise, l.nom as localite, l.cp
         FROM {$this->table} o INNER JOIN `entreprises` e ON o.idEntreprise = e.id INNER JOIN `localites` l ON o.idLocalite = l.id")->fetchAll();
     }
+     /**
+     * 
+     */
+    function findFrom($start) {
+        return $this->q("SELECT o.*, e.nom AS entreprise, l.nom as localite, l.cp
+        FROM {$this->table} o INNER JOIN `entreprises` e ON o.idEntreprise = e.id INNER JOIN `localites` l ON o.idLocalite = l.id 
+        ORDER BY o.id DESC LIMIT 5 OFFSET {$start}")->fetchAll();
+    }
+    /**
+     * count
+     */
+    function lines() {
+        return $this->q("SELECT COUNT(id) as n FROM {$this->table}")->fetch()->n;
+    }
     /**
      * remove
      */
