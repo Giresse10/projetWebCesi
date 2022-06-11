@@ -121,7 +121,7 @@
 
                 {for $nb = 0 to $nbOffres step 5}
                 <li class="page-item"><a class="page-link {if $smarty.get.page eq $nb/5} active {/if}" 
-                    href="/offres-de-stage/{$nb/5+1}">{$nb/5+1}</a></li>
+                    href="/offres-de-stage/{$nb/5}">{$nb/5+1}</a></li>
                 {/for}
                 <li class="page-item">
                 <a class="page-link {if $smarty.get.page*10 > $nbOffres } disabled {/if}" href="/offres-de-stage/{$smarty.get.page + 1}" aria-label="Next">
