@@ -3,9 +3,9 @@
     offre
 {/block}
 {block name="content"}
-    <div class="mt-3 row row-cols-lg-3 row-cols-1 justify-content-center">
+    <div class="mt-3 row row-cols-lg-3 row-cols-1 justify-content-center p-2">
         {foreach $offres as $f}
-            <div class="rounded shadow-sm p-3 my-1 border offre-items col mx-2" style="max-width:500px;" role="button" id="offre-item-{$f->id}">
+            <div class="rounded shadow-sm p-3 my-1 border offre-items col mx-1" style="max-width:500px;" role="button" id="offre-item-{$f->id}">
                 {********** titre de l'offre *******}
                 <div class="d-flex justify-content-between">
                     <h3>{$f->titre}</h3>

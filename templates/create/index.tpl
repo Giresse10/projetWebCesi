@@ -36,7 +36,7 @@
                                 <input type="text" class="form-control" id="usersNom" name="user_nom">
                             </div>
                             <div class="col-md-6">
-                                <label for="usersPrenom" class="form-label">Prenom</label>
+                                <label for="usersPrenom" class="form-label">Prénom</label>
                                 <input type="text" class="form-control" id="usersPrenom" name="user_prenom">
                             </div>
                             <div class="col-12">

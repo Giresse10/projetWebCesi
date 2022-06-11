@@ -39,16 +39,16 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     {*********** search bar/only large screen***********}
-                    <div class="mx-5 d-sm-none" id="headSearch">
+                    <div class="mx-5" id="headSearch">
                         <form>
                             <div class="input-group shadow">
                                 <input class="form-control" type="search" placeholder="Rechercher..."
-    aria-label="Search" id="searchControl" name="q" value="{if isset($smarty.get.q)}{$smarty.get.q}{/if}">
+                                    aria-label="Search" id="searchControl" name="q" value="{if isset($smarty.get.q)}{$smarty.get.q}{/if}">
                                 <button class="btn btn-primary" type="submit" id="searchSubmit" formmethod="get"
                                     formaction="/search"><i class="fa-solid fa-search p-1"></i></button>
                             </div>
                         </form>
-                        <div style="height:200px; position:absolute;" class="border w-50"></div>
+                        {*<div style="height:200px; position:absolute;" class="border w-50"></div>*}
                     </div>
                     {**********************************}
                     {************* Menu ***************}
@@ -95,6 +95,19 @@
     </header>
 
     <main class="container">
+    {*********** search bar/small and medium screen***********}
+    <div class="mx-1 mt-3" id="headSearch2">
+        <form>
+            <div class="input-group">
+                <input class="form-control" type="search" placeholder="Rechercher..."
+                    aria-label="Search" id="searchControl2" name="q" value="{if isset($smarty.get.q)}{$smarty.get.q}{/if}">
+                <button class="btn btn-primary" type="submit" id="searchSubmit2" formmethod="get"
+                    formaction="/search"><i class="fa-solid fa-search p-1"></i></button>
+            </div>
+        </form>
+        {*<div style="height:200px; position:absolute;width:92%" class="border bg-light"></div>*}
+    </div>
+    {**********************************}
         {block name="content"}default Content{/block}
     </main>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"

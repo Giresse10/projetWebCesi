@@ -88,14 +88,14 @@ creation de {$nom}
             </div>
         </div>
         <div class="card-body">
-             <div class="text-success">Nouvel utilisateur enregistrer avec succès</div>
-            <div class="border-bottom text-white bg-dark text-center mt-2 mb-1 border-success">Information de l'utilisateur </div>
+             <div class="text-success">Nouvel utilisateur enregistré avec succès</div>
+            <div class="border-bottom text-white bg-secondary text-center mt-2 mb-1 border-success">Information de l'utilisateur </div>
             <div class="text-primary">status : <span class="text-muted">{$statut->nom}</span></div>
-            <div class="text-primary">Prenom : <span class="text-muted">{$prenom}</span></div>
+            <div class="text-primary">Prénom : <span class="text-muted">{$prenom}</span></div>
             <div class="text-primary">Nom : <span class="text-muted">{$nom}</span></div>
             <div class="border p-2 bg-dark">
-            <div class="text-primary">Identifiant : <span class="text-white">{$email}</span></div>
-            <div class="text-primary">Mot de passe : <span class="text-white">{$password}</span></div>
+            <div class="text-primary">Identifiant : <span class="text-white user-select-all">{$email}</span></div>
+            <div class="text-primary">Mot de passe : <span class="text-white user-select-all">{$password}</span></div>
             </div>
         </div>
     </div>

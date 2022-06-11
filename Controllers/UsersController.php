@@ -93,4 +93,12 @@ class UsersController extends Controller{
         $user = $usersModel->findSomeOne($_SESSION['user']['email']);
         $this->render('users/profil.tpl',compact('user'));
     }
+    /**
+     * page de parametre du compte
+     */
+    public function manage() {
+        $usersModel = new UsersModel;
+        $user = $usersModel->findAll();
+        $this->json(compact('user'));
+    }
 }
