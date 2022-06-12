@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Core\Form;
+use App\Models\CandidaturesModel;
 use App\Models\EntreprisesXLocalitesModel;
 use App\Models\OffresDeStageModel;
 use App\Models\WishListModel;
@@ -12,6 +13,7 @@ class OffresDeStageController extends Controller {
         //get pour la Pagination
         $_GET['page'] = $p;
         $wishlist = new WishListModel;
+        $candidature = new CandidaturesModel;
         $offresModel = new OffresDeStageModel;
         $offres = $offresModel->findFrom($p*5);
         $nbOffres = $offresModel->lines();
@@ -20,7 +22,10 @@ class OffresDeStageController extends Controller {
             foreach($offres as $o){
                 $w = $wishlist->hydrate(['idOffresDeStage'=>$o->id, 'idUsers'=>$_SESSION['user']['id']]);
                 $w = $wishlist->findSelfWishlist();
+                $c = $candidature->hydrate(['idOffresDeStage'=>$o->id, 'idUser'=>$_SESSION['user']['id']]);
+                $c = $candidature->findSelfApply();
                 $o->is_wishlist = $w;
+                $o->is_apply = $c;
             }
         }
         $this->render('offres/index.tpl', compact('offres','nbOffres'));
@@ -28,7 +33,11 @@ class OffresDeStageController extends Controller {
 
     public function lire($id = 0) {
         $offresModel = new OffresDeStageModel;
+        $candidature = new CandidaturesModel;
         $offre = $offresModel->findOne($id);
+        $c = $candidature->hydrate(['idOffresDeStage'=>$offre->id, 'idUser'=>$_SESSION['user']['id']]);
+                $c = $candidature->findSelfApply();
+                $offre->is_apply = $c;
         $this->render('offres/lire.tpl', compact('offre'));
     }
     /**
@@ -137,13 +146,33 @@ class OffresDeStageController extends Controller {
         $offre = $offresModel->findOne($id);
 
         if(Form::validate($_POST,['postuler_offre', 'postuler_cv', 'postuler_lm'])){
+            var_dump($_POST);
+            $idUser = $_SESSION['user']['id'];
             $idOffresDeStage = strip_tags($_POST['postuler_offre']);
-            $cvData = $_FILES['postuler_cv']['tmp_name'];
+            $cvData = file_get_contents($_FILES['postuler_cv']['tmp_name']);
+            
             $cvTitre = $_FILES['postuler_cv']['name'];
-            $cvType = $_FILES['postuler_cv']['type'];
+            $lm = strip_tags($_POST['postuler_lm']);
 
-            $lm = "";
-            var_dump($_FILES);
+            $candidature = new CandidaturesModel;
+            $candidature->hydrate(compact('idOffresDeStage', 'cvData', 'cvTitre', 'idUser'));
+            if($lm == 1)
+                $done = $candidature->save();
+            if($lm == 2){
+                $lmData = file_get_contents($_FILES['postuler_lm_fichier']['tmp_name']);
+                $lmTitre = $_FILES['postuler_lm_fichier']['name'];
+                $candidature->hydrate(compact('lmData', 'lmTitre'));
+                $done = $candidature->save();
+                var_dump($done);
+            }
+            if($lm == 3){
+                $lmText = strip_tags($_POST['postuler_lm_rediger']);
+                $candidature->hydrate(compact('lmText'));
+                $done = $candidature->save();
+            }
+            $_POST = array();
+            //var_dump($candidature);
+            header("Location:/offres-de-stage/lire/$id");
         }
 
         $this->render('offres/apply.tpl', compact('offre'));

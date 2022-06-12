@@ -5,12 +5,15 @@
 {block name="content"}
     <div class="mt-3 row row-cols-lg-3 row-cols-1 justify-content-center p-2">
         {foreach $offres as $f}
-            <div class="rounded shadow-sm p-3 my-1 border offre-items col mx-1" style="max-width:500px;" role="button" id="offre-item-{$f->id}">
+            <div class="rounded shadow-sm p-3 my-1 border offre-items col mx-1" style="max-width:500px;{if $f->is_apply}background-color: rgba(100, 100, 255, 0.1){/if}"
+                role="button" id="offre-item-{$f->id}">
                 {********** titre de l'offre *******}
                 <div class="d-flex justify-content-between">
                     <h3>{$f->titre}</h3>
                     {********** whishlist *****************************}
-                    {if $f->is_wishlist}
+                    {if $f->is_apply}
+                    <span class="text-success"><i class="fa-solid fa-check-double"></i></span>
+                    {else if $f->is_wishlist}
                         <form method="post" action="/wish-list/like" class="likedForm" id="unLiked-{$f->id}">
                             <input type="hidden" name="user" value="{$smarty.session.user.id}">
                             <input type="hidden" name="offre" value="{$f->id}" />

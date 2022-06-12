@@ -3,9 +3,14 @@
     postuler
 {/block}
 {block name="content"}
-    <div class="mx-auto p-3 rounded border shadow-lg my-4" style="max-width:600px;">
+    <style>
+        #headSearch2{
+            display: none;
+        }
+    </style>
+    <div class="mx-auto p-3 rounded border shadow-lg my-4" style="max-width:600px;" id="applyField">
     <h3 class="text-center">Postule à l'offre <span class="badge bg-info">{$offre->titre}</span></h3>
-        <form>
+        <form id="applyFormOffre" method="post">
             <input type="hidden" name="postuler_offre" value="{$offre->id}"/>
             {*** CV ***}
             <div class="my-2 border rounded">
@@ -18,7 +23,7 @@
                     <label for="postulerSans" class="w-100 h-100 p-1 text-center" role="button">
                     Postuler sans lettre de motivation
                     </label>
-                    <input type="radio" name="postuler_lm" id="postulerSans" class="d-none" value="1" selected/>
+                    <input type="radio" name="postuler_lm" id="postulerSans" class="d-none" value="1" checked/>
                 </div>
                 {************ fichier lm **********}
                 <div class="my-2">
@@ -38,10 +43,10 @@
                         Rediger une lettre de motivation
                     </label>
                     <input type="radio" name="postuler_lm" id="postulerRediger" class="d-none" value="3"/>
-                    <textarea type="file" name="postuler_lm_rediger" class="d-none form-control" id="postRedFied"></textarea>
+                    <textarea name="postuler_lm_rediger" class="d-none form-control" id="postRedFied"></textarea>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary mx-auto" formmethod="POST" formenctype="multipart/form-data">
+            <button type="submit" class="btn btn-primary mx-auto" formenctype="multipart/form-data">
                 <i class="fa-solid fa-paper-plane"></i>Envoyer
             </button>
         </form>
@@ -68,8 +73,8 @@
     /**
     * toggle border
     */
-    function toggleBorder(radio){
-        if($(radio).is(':checked')){
+    function toggleBorder(radio,level){
+        if($(radio).is(':checked')&& $(radio).val()==level){
         $(radio).parent().addClass('border-primary');
         }
         else{
@@ -96,11 +101,12 @@
     });
 
     $('.lmtoggle').click(()=>{
-        toggleBorder("#postulerRediger");
-        toggleBorder("#postulerSans");
-        toggleBorder("#postulerFichier");
+        toggleBorder("#postulerRediger",3);
+        toggleBorder("#postulerSans", 1);
+        toggleBorder("#postulerFichier", 2);
         showAfter("#postulerRediger", '#postRedFied');
         showAfter("#postulerFichier", '#postFicFied');
     });
+//submit
 </script>
 {/block}

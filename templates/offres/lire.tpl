@@ -10,21 +10,11 @@
     <div class="d-flex justify-content-between">
         <h3>{$offre->titre}</h3>
         {************ button postuler *************************}
-        <a role="button" href="/offres-de-stage/apply/{$offre->id}" class="btn btn-primary">Postuler</a>
-        {********** out whishlist *****************************}
-        {if false}
-            <form method="post" action="/wish-list/like" class="likedForm" id="unLiked-{$offre->id}">
-                <input type="hidden" name="user" value="{$smarty.session.user.id}">
-                <input type="hidden" name="offre" value="{$offre->id}" />
-                <input type="hidden" name="event" value="unlike" />
-                <button class="btn border-0 followStatus"><i class="fa-solid fa-heart"></i></button>
-            </form>
-            <form method="post" action="/wish-list/like" class="likedForm" id="liked-{$offre->id}">
-                <input type="hidden" name="user" value="{$smarty.session.user.id}">
-                <input type="hidden" name="offre" value="{$offre->id}" />
-                <input type="hidden" name="event" value="like" />
-                <button class="btn border-0 followStatus"><i class="fa-regular fa-heart"></i></button>
-            </form>
+        {****************** apply *****************************}
+        {if $offre->is_apply}
+            <span class="text-success"><i class="fa-solid fa-check-double"></i></span>
+        {else}
+            <a role="button" href="/offres-de-stage/apply/{$offre->id}" class="btn btn-primary">Postuler</a>
         {/if}
         {if true}
             <div>
