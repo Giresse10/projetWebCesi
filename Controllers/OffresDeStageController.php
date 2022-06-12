@@ -26,8 +26,10 @@ class OffresDeStageController extends Controller {
         $this->render('offres/index.tpl', compact('offres','nbOffres'));
     }
 
-    public function lire() {
-        $this->render('offres/lire.tpl');
+    public function lire($id = 0) {
+        $offresModel = new OffresDeStageModel;
+        $offre = $offresModel->findOne($id);
+        $this->render('offres/lire.tpl', compact('offre'));
     }
     /**
      * Register
@@ -126,6 +128,25 @@ class OffresDeStageController extends Controller {
         $offresModel = new OffresDeStageModel;
         $offre = $offresModel->findOne($id);
         $this->render('offres/edit.tpl', compact('offre'));
+    }
+    /**
+     * apply
+     */
+    public function apply($id){
+        $offresModel = new OffresDeStageModel;
+        $offre = $offresModel->findOne($id);
+
+        if(Form::validate($_POST,['postuler_offre', 'postuler_cv', 'postuler_lm'])){
+            $idOffresDeStage = strip_tags($_POST['postuler_offre']);
+            $cvData = $_FILES['postuler_cv']['tmp_name'];
+            $cvTitre = $_FILES['postuler_cv']['name'];
+            $cvType = $_FILES['postuler_cv']['type'];
+
+            $lm = "";
+            var_dump($_FILES);
+        }
+
+        $this->render('offres/apply.tpl', compact('offre'));
     }
     /**
      * delete
