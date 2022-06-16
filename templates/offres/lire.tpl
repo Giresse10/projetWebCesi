@@ -41,11 +41,19 @@
         <div class="entreprise">
             <span class="fw-bold">{$offre->entreprise}</span>
             <span class="note text-secondary">
-                <i class="fa-solid  fa-star text-dark" style="margin-right:-5px;"></i>
-                <i class="fa-solid  fa-star text-dark" style="margin-right:-5px;"></i>
-                <i class="fa-solid  fa-star text-dark" style="margin-right:-5px;"></i>
-                <i class="fa-solid  fa-star" style="margin-right:-5px;"></i>
-                <i class="fa-solid  fa-star" style="margin-right:-5px;"></i>
+            {if !empty($moyenne)}
+                <span>{$moyenne->mean}</span>
+                <span class="note text-secondary">
+                    {for $i=1 to $moyenne->rd}
+                    <i class="fa-solid  fa-star text-dark" style="margin-right:-5px;"></i>
+                    {/for}{for $i=$moyenne->rd+1 to 5}
+                    <i class="fa-solid  fa-star" style="margin-right:-5px;"></i>
+                    {/for}
+                </span>
+                <span>({$moyenne->nb})</span>
+                {else}
+                <span class="text-info">"Aucun avis!"</span>
+                {/if}
             </span>
         </div>
         {************** Locatité ***************************}
@@ -67,12 +75,20 @@
         {************** date de prise de poste ****************}
         <div class="d-flex flex-column">
             <div>
-                <span class="text-dark fw-bolder">Competence(s) réquise(s):</span>
-                <div class="text-muted">{$offre->date|date_format:"%D"}</div>
+                <span class="text-dark fw-bolder">Competence(s) :</span>
+                <div class="text-muted">
+                    {if !empty($offre->competences)}
+                    {foreach $offre->competences as $o}
+                    <span class="badge bg-info">{$o->nom} </span>
+                    {/foreach}
+                    {else}
+                    <span class="badge text-danger">non renseigné</span>
+                    {/if}
+                </div>
             </div>
             <div>
                 <span class="text-dark fw-bolder">Date de prise du poste :</span>
-                <span class="text-muted">{$offre->date|date_format:"%D"}</span>
+                <span class="text-muted">{$offre->date|date_format:"%d/%m/%Y"}</span>
             </div>
             <div>
                 <span class="text-dark fw-bolder">Durée du stage:</span>

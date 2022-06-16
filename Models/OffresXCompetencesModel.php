@@ -49,6 +49,12 @@ class OffresXCompetencesModel extends Model{
         }else{
             return false;
         }
-    } 
+    }
+    /**
+     * Competences
+     */
+    function findComp($id){
+        return $this->q("SELECT c.nom FROM {$this->table} x JOIN competences c ON x.idCompetences = c.id WHERE x.idOffresDeStage = ?", [$id])->fetchAll();
+    }
 
 }

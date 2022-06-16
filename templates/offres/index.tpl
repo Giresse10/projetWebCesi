@@ -53,11 +53,13 @@
                     <div class="entreprise">
                         <span class="fw-bold">{$f->entreprise}</span>
                         <span class="note text-secondary">
-                            <i class="fa-solid  fa-star text-dark" style="margin-right:-5px;"></i>
-                            <i class="fa-solid  fa-star text-dark" style="margin-right:-5px;"></i>
-                            <i class="fa-solid  fa-star text-dark" style="margin-right:-5px;"></i>
-                            <i class="fa-solid  fa-star" style="margin-right:-5px;"></i>
-                            <i class="fa-solid  fa-star" style="margin-right:-5px;"></i>
+                            {if !empty($f->moyenne)}
+                                {for $i=1 to $f->moyenne->rd}
+                                <i class="fa-solid  fa-star text-dark" style="margin-right:-5px;"></i>
+                                {/for}{for $i=$f->moyenne->rd+1 to 5}
+                                <i class="fa-solid  fa-star" style="margin-right:-5px;"></i>
+                                {/for}
+                            {/if}  
                         </span>
                     </div>
                     {************** Locatité ***************************}
@@ -127,7 +129,7 @@
                     href="/offres-de-stage/{$nb/5}">{$nb/5+1}</a></li>
                 {/for}
                 <li class="page-item">
-                <a class="page-link {if $smarty.get.page*10 > $nbOffres-1 } disabled {/if}" href="/offres-de-stage/{$smarty.get.page + 1}" aria-label="Next">
+                <a class="page-link {if ($smarty.get.page+1)*5 >= $nbOffres} disabled {/if}" href="/offres-de-stage/{$smarty.get.page + 1}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
                 </li>

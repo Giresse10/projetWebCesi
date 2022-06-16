@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Core\Form;
+use App\Models\AvisEntreprisesModel;
 use App\Models\CandidaturesModel;
 use App\Models\CompetencesModel;
 use App\Models\EntreprisesXLocalitesModel;
@@ -17,6 +18,7 @@ class OffresDeStageController extends Controller {
         $wishlist = new WishListModel;
         $candidature = new CandidaturesModel;
         $offresModel = new OffresDeStageModel;
+        $avisModel = new AvisEntreprisesModel;
         $offres = $offresModel->findFrom($p*5);
         $nbOffres = $offresModel->lines();
         //liste des offres dans wishlist
@@ -26,8 +28,10 @@ class OffresDeStageController extends Controller {
                 $w = $wishlist->findSelfWishlist();
                 $c = $candidature->hydrate(['idOffresDeStage'=>$o->id, 'idUser'=>$_SESSION['user']['id']]);
                 $c = $candidature->findSelfApply();
+                $moyenne = $avisModel->mean($o->idEntreprise);
                 $o->is_wishlist = $w;
                 $o->is_apply = $c;
+                $o->moyenne = $moyenne;
             }
         }
         $this->render('offres/index.tpl', compact('offres','nbOffres'));
@@ -36,11 +40,17 @@ class OffresDeStageController extends Controller {
     public function lire($id = 0) {
         $offresModel = new OffresDeStageModel;
         $candidature = new CandidaturesModel;
+        $compet = new OffresXCompetencesModel;
+        $avisModel = new AvisEntreprisesModel;
         $offre = $offresModel->findOne($id);
+        $avis = $avisModel->findNotice($offre->idEntreprise);
+        $moyenne = $avisModel->mean($offre->idEntreprise);
         $c = $candidature->hydrate(['idOffresDeStage'=>$offre->id, 'idUser'=>$_SESSION['user']['id']]);
-                $c = $candidature->findSelfApply();
-                $offre->is_apply = $c;
-        $this->render('offres/lire.tpl', compact('offre'));
+        $c = $candidature->findSelfApply();
+        $cp =$compet->findComp($id);
+        $offre->is_apply = $c;
+        $offre->competences = $cp;
+        $this->render('offres/lire.tpl', compact('offre', 'moyenne', 'avis'));
     }
     /**
      * Register
