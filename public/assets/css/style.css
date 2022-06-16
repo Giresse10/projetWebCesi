@@ -87,3 +87,13 @@ body{
     }
     
 }
+
+.tag span[data-role="remove"] {
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.tag span[data-role="remove"]:after {
+  content: "x";
+  padding: 0px 2px;
+}

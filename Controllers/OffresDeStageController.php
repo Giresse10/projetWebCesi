@@ -3,8 +3,10 @@ namespace App\Controllers;
 
 use App\Core\Form;
 use App\Models\CandidaturesModel;
+use App\Models\CompetencesModel;
 use App\Models\EntreprisesXLocalitesModel;
 use App\Models\OffresDeStageModel;
+use App\Models\OffresXCompetencesModel;
 use App\Models\WishListModel;
 
 class OffresDeStageController extends Controller {
@@ -58,6 +60,9 @@ class OffresDeStageController extends Controller {
             $baseDeRemuneration = strip_tags($_POST['offre_baseDeRemuneration']);
             $date = strip_tags($_POST['offre_date']);
             $nbPlaces = strip_tags($_POST['offre_nbPlaces']);
+            //recuperer competences (trop compliquer)
+            $lstComptence = strip_tags($_POST['offre_comp']);
+            $lstComptence = explode(", ",$lstComptence);
             //inserer les donnees dans un model
             $model = new OffresDeStageModel;
             $model->hydrate(compact('titre','description','idEntreprise','duree','baseDeRemuneration','date','nbPlaces'));
@@ -91,6 +96,17 @@ class OffresDeStageController extends Controller {
                     $_SESSION['state']['description'] = $description;
                     $_SESSION['state']['status'] = true;
                     header('Location:/create/register');
+                    //conserver les competences
+                    $competencesModel = new CompetencesModel;
+                    $offresXCompetencesModel = new OffresXCompetencesModel;
+                    foreach($lstComptence as $l){
+                        $competencesModel->hydrate(['nom' => $l]);
+                        $competencesModel->create();
+                        $idCompetences = $competencesModel->findBy(['nom' => $l])[0]->id;
+                        $idOffresDeStage = $model->findBy(compact('titre','description','idLocalite','idEntreprise','duree','baseDeRemuneration','date','nbPlaces'))[0]->id;
+                        $offresXCompetencesModel->hydrate(compact('idCompetences','idOffresDeStage'));
+                        $offresXCompetencesModel->create();
+                    }
                 }else{
                     $_SESSION['state']['type'] = 'offre';
                     $_SESSION['state']['titre'] = $titre;
@@ -119,6 +135,16 @@ class OffresDeStageController extends Controller {
                 $_SESSION['state']['description'] = $description;
                 $_SESSION['state']['status'] = true;
                 header('Location:/create/register');
+                //conserver les competences
+                $competencesModel = new CompetencesModel;
+                foreach($lstComptence as $l){
+                    $competencesModel->hydrate(['nom' => $l]);
+                    $competencesModel->create();
+                    $idCompetences = $competencesModel->findBy(['nom' => $l])[0]->id;
+                    $idOffresDeStage = $model->findBy(compact('titre','description','idLocalite','idEntreprise','duree','baseDeRemuneration','date','nbPlaces'))[0]->id;
+                    $offresXCompetencesModel->hydrate(compact('idCompetences','idOffresDeStage'));
+                    $offresXCompetencesModel->create();
+                }
             }else{
                 $_SESSION['state']['type'] = 'offre';
                 $_SESSION['state']['titre'] = $titre;

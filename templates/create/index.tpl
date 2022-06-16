@@ -1,4 +1,7 @@
 {extends file="../base.tpl"}
+{block name="style"}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{/block}
 {block name="title"}
     creation
 {/block}
@@ -135,12 +138,19 @@
                         {*** nom/prenom ****}
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label for="usersNom" class="form-label">Titre</label>
-                                <input type="text" class="form-control" id="usersNom" name="offre_titre">
+                                <label for="OffreTitre" class="form-label">Titre</label>
+                                <input type="text" class="form-control" id="OffreTitre" name="offre_titre">
                             </div>
                             <div class="col-12">
                                 <label for="OffreDescription" class="form-label">Description</label>
                                 <textarea type="text" class="form-control" id="OffreDescription" name="offre_description"></textarea>
+                            </div>
+                            {********** competences **********}
+                            <div class="col-12">
+                            <div class="ui-widget">
+                                <label for="tagsComp">Competences </label>
+                                <input id="tagsComp" type="text" class="form-control" name="offre_comp">
+                            </div>
                             </div>
                             <div class="col-12">
                                 <label for="offreEntreprise" class="form-label">Entreprise</label>
@@ -182,4 +192,56 @@
             </div>
         </div>
     </div>
+{/block}
+
+{block name="script"}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+$( function() {
+var availableTags = [
+{foreach $competences as $c}
+ "{$c->nom}",
+{/foreach}
+    
+];
+function split( val ) {
+  return val.split( /,\s*/ );
+}
+function extractLast( term ) {
+  return split( term ).pop();
+}
+
+$( "#tagsComp" )
+  // don't navigate away from the field on tab when selecting an item
+  .on( "keydown", function( event ) {
+    if ( event.keyCode === $.ui.keyCode.TAB &&
+        $( this ).autocomplete( "instance" ).menu.active ) {
+      event.preventDefault();
+    }
+  })
+  .autocomplete({
+    minLength: 0,
+    source: function( request, response ) {
+      // delegate back to autocomplete, but extract the last term
+      response( $.ui.autocomplete.filter(
+        availableTags, extractLast( request.term ) ) );
+    },
+    focus: function() {
+      // prevent value inserted on focus
+      return false;
+    },
+    select: function( event, ui ) {
+      var terms = split( this.value );
+      // remove the current input
+      terms.pop();
+      // add the selected item
+      terms.push( ui.item.value );
+      // add placeholder to get the comma-and-space at the end
+      terms.push( "" );
+      this.value = terms.join( ", " );
+      return false;
+    }
+  });
+} );
+</script>
 {/block}

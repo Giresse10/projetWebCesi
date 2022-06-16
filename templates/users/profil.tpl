@@ -14,8 +14,8 @@ Profil
         {**************************************************}
         <ul class="nav flex-column">
         {***************** whish listes *****************}
-            <li class="nav-item"><a href="" class="nav-link">Mes candidatures</a></li>
-            <li class="nav-item"><a href="" class="nav-link">Mes favoris</a></li>
+            <li class="nav-item"><a href="/candidatures" class="nav-link">Mes candidatures</a></li>
+            <li class="nav-item"><a href="/wish-list" class="nav-link">Mes favoris</a></li>
             <li class="nav-item"><a href="" class="nav-link">Mes avis</a></li>
         </ul>
         {**************************************************}

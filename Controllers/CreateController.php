@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Models\CentreModel;
+use App\Models\CompetencesModel;
 use App\Models\EntreprisesModel;
 use App\Models\FiliereModel;
 use App\Models\StatusModel;
@@ -17,14 +18,16 @@ class CreateController extends Controller {
         $secteursModel = new SecteursModel;
         $localitesModel = new LocalitesModel;
         $entreprisesModel = new EntreprisesModel;
+        $competencesModel = new CompetencesModel;
         //
         $centre = $centreModel->findAll();
+        $competences = $competencesModel->findAll();
         $filiere = $filiereModel->findAll();
         $status = $statusModel->findAll();
         $secteurs = $secteursModel->findAll();
         $localites = $localitesModel->findAll();
         $entreprises = $entreprisesModel->findAll();
-        return $this->render('create/index.tpl', compact('centre','filiere','status', 'secteurs','localites','entreprises'));
+        return $this->render('create/index.tpl', compact('centre','filiere','status', 'secteurs','localites','entreprises', 'competences'));
     }
 
     function register(){
