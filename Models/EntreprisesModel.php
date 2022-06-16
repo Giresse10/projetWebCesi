@@ -96,6 +96,20 @@ class EntreprisesModel extends Model{
         return $this->q("SELECT e.*, s.nom AS secteur FROM {$this->table} e INNER JOIN `secteurs` s ON e.idSecteur = s.id")->fetchAll();
     }
     /**
+     * One
+     */
+    function findOne() {
+        $sql = "SELECT e.*, s.nom AS secteur FROM {$this->table} e INNER JOIN `secteurs` s ON e.idSecteur = s.id WHERE e.id = {$this->id}";
+        return $this->q($sql)->fetch();
+    }
+    /**
+     * find one items
+     */
+    public function findItems() {
+        return $this->q("SELECT o.*, l.nom as localite, l.cp FROM {$this->table} e
+        INNER JOIN `OffresDeStage` o ON o.idEntreprise=e.id INNER JOIN `localites` l ON o.idLocalite = l.id WHERE e.id = {$this->id}")->fetchAll();
+    }
+    /**
      * remove
      */
     function remove() {

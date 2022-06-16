@@ -69,7 +69,7 @@
                     <div class="d-flex flex-column">
                         <div>
                             <span class="text-dark fw-bolder">A partir du :</span>
-                            <span class="text-muted">{$f->date|date_format:"%D"}</span>
+                            <span class="text-muted">{$f->date|date_format:"%d/%m/%Y"}</span>
                         </div>
                         <div>
                             <span class="text-dark fw-bolder">Durée :</span>
@@ -80,7 +80,7 @@
                     <div class="d-flex justify-content-between">
                         <div class="fs-6">
                             <span class="text-primary">Publié le :</span>
-                            <span class="text-muted">{$f->createdAt|date_format:"%D"}</span>
+                            <span class="text-muted">{$f->createdAt|date_format:"%d/%m/%Y"}</span>
                         </div>
                     </div>
                 </div>

@@ -31,13 +31,19 @@
                     {/if}
                 </div>
                 <div onclick="javascript:window.location.href='/entreprises/lire/{$e->id}'">
+                {if !empty($e->moyenne)}
+                    <span>{$e->moyenne->mean|string_format:"%.3f"}</span>
                     <span class="note text-secondary">
+                        {for $i=1 to $e->moyenne->rd}
                         <i class="fa-solid  fa-star text-dark" style="margin-right:-5px;"></i>
-                        <i class="fa-solid  fa-star text-dark" style="margin-right:-5px;"></i>
-                        <i class="fa-solid  fa-star text-dark" style="margin-right:-5px;"></i>
+                        {/for}{for $i=$e->moyenne->rd+1 to 5}
                         <i class="fa-solid  fa-star" style="margin-right:-5px;"></i>
-                        <i class="fa-solid  fa-star" style="margin-right:-5px;"></i>
+                        {/for}
                     </span>
+                    <span>({$e->moyenne->nb})</span>
+                    {else}
+                    <span class="text-danger">"Aucun avis!"</span>
+                    {/if}
                     <hr class="border-primary" />
                     <p class="m-0">
                         <span class="text-primary">Secteur d'activites: </span><span class="text-muted">{$e->secteur}</span>

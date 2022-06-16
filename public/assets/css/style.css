@@ -1,3 +1,7 @@
+body{
+  box-sizing: content-box;
+  width: 100%;
+}
 /**** personnal bootstrap ***/
 .form-control:focus, .form-select:focus{
     box-shadow: 0 0 0 0;
