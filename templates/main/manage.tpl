@@ -43,7 +43,7 @@
                         <div class="d-flex justify-content-between m-3">
                         <form>
                             <div class="border border-primary rounded">
-                                <input type="text" class="form-control" name="q"/>
+                                <input type="text" class="form-control" name="q" placeholder="rechercher..."/>
                             </div>
                         </form>
                         <ul class="nav nav-tabs justify-content-center" id="userTab">
