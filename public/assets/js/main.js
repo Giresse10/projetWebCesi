@@ -118,7 +118,21 @@ $(
             data: form_data,
 
           }).done(function(response){ 
-           $(`#entreprise-item-${id}`).fadeOut('slow');
+           $(`#entreprise-item-${id}`).remove();
+          });
+        });
+        //___________ entreprise/ delete ________
+        $(".DeleteLoc").submit(function(e){
+          e.preventDefault(); //empêcher une action par défaut
+          var form_url = $(this).attr("action"); //récupérer l'URL du formulaire
+          var form_method = $(this).attr("method"); //récupérer la méthode GET/POST du formulaire
+          var id = $(this).find("input[name=localite]").val();
+          $.ajax({
+            url : form_url,
+            type: form_method,
+
+          }).done(function(response){
+           $(`#loc-item-${id}`).fadeOut('slow');
           });
         });
     }

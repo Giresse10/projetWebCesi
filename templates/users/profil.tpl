@@ -1,5 +1,5 @@
 {extends file="../base.tpl"} 
-
+{if isset($smarty.session.user)}
 {block name="title"}
 Profil
 {/block}
@@ -34,3 +34,11 @@ Profil
 </div>
 {var_dump($user)}
 {/block}
+{else}
+    {block name="content"}
+        <div class="mx-auto my-3 text-center">
+            <h3 class="text-muted">Ooops veillez vous connecter</h3>
+            <a href="/">page de connexion</a>
+        </div>
+{/block}
+{/if}

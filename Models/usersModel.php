@@ -222,6 +222,28 @@ class usersModel extends Model{
         INNER JOIN `centre` c ON u.idCentre = c.id
         INNER JOIN `filiere` f ON u.idFiliere = f.id")->fetchAll();
     }
+    /**
+     * 
+     */
+    function findOne($id) {
+        return $this->q("SELECT u.*, s.nom AS status, f.nom as filiere, c.nom as centre
+        FROM {$this->table} u INNER JOIN `status` s ON u.idStatus = s.id 
+        INNER JOIN `centre` c ON u.idCentre = c.id
+        INNER JOIN `filiere` f ON u.idFiliere = f.id WHERE u.id = ?",[$id])->fetch();
+    }
+    /**
+     * remove
+     */
+    function remove() {
+        if($this->findBy(['id'=>$this->id])&&$this->idStatus!=1){
+            $this->delete(['id'=>$this->id]);
+            $this->q("DELETE FROM candidatures WHERE idUser = $this->id");
+            $this->q("DELETE FROM wishlist WHERE idUsers = $this->id");
+            return true;
+        }else{
+            return false;
+        }        
+    }
     //Login
     function findSomeOne($id){
         return $this->q("SELECT * FROM {$this->table} WHERE email=? OR pseudo=?", [$id, $id])->fetch();
@@ -231,6 +253,6 @@ class usersModel extends Model{
         $_SESSION['user']['email'] = $this->email;
         $_SESSION['user']['prenom'] = $this->prenom;
         $_SESSION['user']['nom'] = $this->nom;
-        $_SESSION['user']['status'] = $this->id_status;
+        $_SESSION['user']['status'] = $this->idStatus;
     }
 }

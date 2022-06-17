@@ -93,4 +93,43 @@ class UsersController extends Controller{
         $user = $usersModel->findSomeOne($_SESSION['user']['email']);
         $this->render('users/profil.tpl',compact('user'));
     }
+    /**
+     * delete
+     */
+    public function delete(){
+        if(isset($_SESSION['user'])&&$_SESSION['user']['status'] == 1){
+            if(Form::validate($_POST, ['user'])){
+                $id = strip_tags($_POST['user']);
+                $model = new UsersModel;
+                $model->hydrate(compact('id'));
+                $model->remove();
+            }
+        }else{
+            http_response_code(404);
+        }
+    }
+    public function edit($id){
+        $umodel = new UsersModel;
+        $users = $umodel->findOne($id);
+        var_dump($users);
+        
+        if(Form::validate($_POST,array('edit'))){
+            $nom = strip_tags($_POST['nom']??$users->nom);
+            $prenom = strip_tags($_POST['prenom']??$users->prenom);
+            $email = strip_tags($_POST['email']??$users->email);
+            $emailPerso = strip_tags($_POST['emailPerso']??$users->emailPerso);
+            $pseudo = strip_tags($_POST['pseudo']??$users->pseudo);
+            $niveau = strip_tags($_POST['niveau']??$users->niveau);
+            $idStatus = strip_tags($_POST['idStatus']??$users->idStatus);
+            $idFiliere = strip_tags($_POST['idFiliere']??$users->idFiliere);
+            $idCentre = strip_tags($_POST['idCentre']??$users->idCentre);
+            $model = new usersModel;
+            $model = $model->hydrate(compact('nom', 'email', 'pseudo', 'niveau', 'prenom', 'idStatus','idFiliere','idCentre','emailPerso'));
+            $umodel->update($id,$model);
+            http_response_code(301);
+            header("Location:".$_SERVER['HTTP_REFERER']);
+        }
+
+        $this->render('users/edit.tpl', compact('users'));
+    }
 }

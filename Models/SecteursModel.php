@@ -43,4 +43,13 @@ class SecteursModel extends Model{
             return false;
         }
     }
+    function remove() {
+        if($this->findBy(['id'=>$this->id])){
+            $this->delete(['id'=>$this->id]);
+            $this->q("DELETE FROM entreprise WHERE idSecteur = $this->id");
+            return true;
+        }else{
+            return false;
+        }        
+    }
 }

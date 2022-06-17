@@ -1,4 +1,5 @@
-{extends file="../base.tpl"} 
+{extends file="../base.tpl"}
+{if isset($smarty.session.user)}
 {block name="title"}
 wishlist
 {/block}
@@ -65,3 +66,11 @@ wishlist
     <li class="nav-item text-center"><a href="users/profil" class="nav-link">Mon profil</a></li>
 </ul>
 {/block}
+{else}
+    {block name="content"}
+        <div class="mx-auto my-3 text-center">
+            <h3 class="text-muted">Ooops veillez vous connecter</h3>
+            <a href="/">page de connexion</a>
+        </div>
+{/block}
+{/if}

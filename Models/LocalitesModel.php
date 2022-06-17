@@ -50,4 +50,16 @@ class LocalitesModel extends Model{
             return false;
         }
     }
+    /**
+     * remove
+     */
+    function remove() {
+        if($this->findBy(['id'=>$this->id])){
+            $this->delete(['id'=>$this->id]);
+            $this->q("DELETE FROM offresdestage WHERE idLocalite = $this->id");
+            return true;
+        }else{
+            return false;
+        }        
+    }
 }

@@ -52,6 +52,7 @@ class MainController extends Controller{
      * page de parametre du compte
      */
     public function manage() {
+        if(isset($_SESSION['user'])&&$_SESSION['user']['status'] == 1){
         $usersModel = new UsersModel;
         $localitesModel = new LocalitesModel;
         $secteursModel = new SecteursModel;
@@ -76,7 +77,9 @@ class MainController extends Controller{
             $model->hydrate(compact('nom'));
             $model->insert();
         }
-    }
+    }else{
+        http_response_code(403);
+    }}
 
     /**
      * cv
@@ -87,5 +90,30 @@ class MainController extends Controller{
         $cv = $c->cvData;
         header("Content-type:application/pdf");
         echo $cv;
+    }
+
+    /**
+     * delete
+     */
+    public function deloc($id){
+        if(isset($_SESSION['user'])&&$_SESSION['user']['status'] == 1){
+            $model = new LocalitesModel;
+            $model->hydrate(compact('id'));
+            $model->remove();
+        }else{
+            http_response_code(403);
+        }
+    }
+    /**
+     * delete
+     */
+    public function delsec($id){
+        if(isset($_SESSION['user'])&&$_SESSION['user']['status'] == 1){
+            $model = new SecteursModel;
+            $model->hydrate(compact('id'));
+            $model->remove();
+        }else{
+            http_response_code(403);
+        }
     }
 }

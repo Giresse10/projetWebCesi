@@ -64,22 +64,36 @@
                             <th scope="col">Statut</th>
                             <th scope="col">Classe</th>
                             <th scope="col">centre</th>
-                            <th scope="col" class="text-center border-danger">modifier</th>
-                            <th scope="col" class="text-center border-danger">supprimer</th>
                           </tr>
                         </thead>
                         <tbody>
                         {$i = 1}
                         {foreach $users as $u}
-                          <tr class="utype-{$u->idStatus} userall">
+                          <tr class="utype-{$u->idStatus} userall" id="entreprise-item-{$u->id}">
                             <th scope="row">{$i++}</th>
                             <td>{$u->nom}</td>
                             <td>{$u->prenom}</td>
                             <td>{$u->status}</td>
                             <td>{$u->niveau}e {$u->filiere}</td>
                             <td class="bg-secondary text-white" style="max-width:10px;text-overflow: ellipsis;">{$u->centre}</td>
-                            <td class="text-center">modifier</td>
-                            <td class="text-center">supprimer</td>
+                            {************** manage *************************}
+                            <td class="text-center">
+                            <div class="dropdown">
+                            <a href="#" role="button" id="dropdownMenuEditor" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="dropdownMenuEditor">
+                                <li><a class="dropdown-item" href="/users/edit/{$u->id}" style="text-decoration: none!important"><i
+                                            class="fa-solid fa-pen-to-square"></i> Modifier</a></li>
+                                <li>
+                                    <button class="dropdown-item" data-bs-toggle="modal"
+                                        data-bs-target="#deleteModal{$u->id}"><i class="fa-solid fa-trash"></i>
+                                        Supprimer</button>
+                                </li>
+                            </ul>
+                        </div>
+                            </td>
                           </tr>
                         {/foreach}
                         </tbody>
@@ -141,18 +155,23 @@
                             <th scope="col">#</th>
                             <th scope="col">Nom</th>
                             <th scope="col">code postal</th>
-                            <th scope="col">supprimer</th>
                           </tr>
                         </thead>
                         <tbody id="locItem">
                         {$il = 1}
                         {foreach $localites as $l}
-                          <tr>
+                          <tr id="loc-item-{$l->id}">
                             <th scope="row">{$il++}</th>
                             <td>{$l->nom}</td>
                             <td>{$l->cp}</td>
-                            <td>supprimer</td>
+                            <td style="width: 60px;">
+                            <form action="/main/deloc/{$l->id}" class="DeleteLoc" method="post">
+                                <input type="hidden" name="localite" value="{$l->id}"/>
+                                <button style="width:50px;border:none;outline:none;color:red;background:transparent;"><i class="fa-solid fa-trash-can"></i></button>
+                            </form>
+                            </td>
                           </tr>
+                          {$idloc = $l->id}
                         {/foreach}
                         </tbody>
                       </table>
@@ -175,7 +194,6 @@
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nom</th>
-                    <th scope="col">supprimer</th>
                   </tr>
                 </thead>
                 <tbody id="sectItem">
@@ -184,7 +202,12 @@
                   <tr>
                     <th scope="row">{$is++}</th>
                     <td>{$s->nom}</td>
-                    <td>supprimer</td>
+                    <td style="width: 60px;">
+                    <form action="/main/delsec/{$s->id}" class="DeleteLoc" method="post">
+                        <input type="hidden" name="localite" value="{$s->id}"/>
+                        <button style="width:50px;border:none;outline:none;color:red;background:transparent;"><i class="fa-solid fa-trash-can"></i></button>
+                    </form>
+                    </td>
                   </tr>
                 {/foreach}
                 </tbody>
@@ -206,6 +229,7 @@
     <script src="/assets/js/main.js"></script>
     <script>
         var nbl = {$il++};
+        var lstid = {$idloc++};
         var nbs = {$is++};
         function h(btn, el){
             $(btn).click(function(){
@@ -255,11 +279,14 @@
            data: form_data,
 
          }).done(function(response){ 
-          $("#locItem").append(`<tr>
+          $("#locItem").append(`<tr id="loc-item-{'${++lstid}'}">
                 <th scope="row">{'${nbl++}'}</th>
                 <td>{'${form_data[\'loc_nom\']}'}</td>
                 <td>{'${form_data[\'loc_cp\']}'}</td>
-                <td>supprimer</td>
+                <td>
+                <button style="width:50px;border:none;outline:none;color:red;background:transparent;"
+                onClick="$(\'#loc-item-{'${lstid}'}\').fadeOut(\'slow\');"><i class="fa-solid fa-trash-can"></i></button>
+                </td>
             </tr>`
             );
          });
@@ -301,6 +328,39 @@
             cvopen("#cvItem{$c->id}",{$c->id});
         {/foreach}
     </script>
+    {foreach $users as $u}
+    {** modal suppression ***}
+            <div class="modal fade" id="deleteModal{$u->id}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="text-center p-2 text-muted">
+                                Voulez-vous supprimer l'utilisateur
+                                <span class="badge bg-info">{$u->prenom}</span>
+                                <div class="alert text-danger">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                        class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img"
+                                        aria-label="Warning:">
+                                        <path
+                                            d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                                    </svg>
+                                    Toutes les données de l'utilisateur seront supprimer
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                {********** formulaire de suppression *****}
+                                <form method="post" action="/users/delete" class="DeleteFormEntreprise" id="delete-{$u->id}">
+                                    <input type="hidden" name="user" value="{$u->id}" />
+                                    <button class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Confirmer</button>
+                                </form>
+                                <button class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Annuler</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {/foreach}
 </body>
 
 </html>
