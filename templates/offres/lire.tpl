@@ -95,6 +95,10 @@
                 <span class="text-muted">{$offre->duree} mois</span>
             </div>
             <div>
+                <span class="text-dark fw-bolder">Nombre de place:</span>
+                <span class="text-muted">{$offre->nbPlaces}</span>
+            </div>
+            <div>
                 <span class="text-dark fw-bolder">Base de Rémuneration:</span>
                 <span class="text-muted">{$offre->baseDeRemuneration} &euro;/h</span>
             </div>

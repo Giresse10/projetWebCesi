@@ -3,6 +3,9 @@
 namespace App\Controllers;
 
 use App\Core\Form;
+use App\Models\CandidaturesModel;
+use App\Models\LocalitesModel;
+use App\Models\SecteursModel;
 use App\Models\usersModel;
 
 class MainController extends Controller{
@@ -43,5 +46,46 @@ class MainController extends Controller{
     public function logout() {
         unset($_SESSION['user']);
         header('Location:.');
+    }
+    
+    /**
+     * page de parametre du compte
+     */
+    public function manage() {
+        $usersModel = new UsersModel;
+        $localitesModel = new LocalitesModel;
+        $secteursModel = new SecteursModel;
+        $candidaturesModel = new CandidaturesModel;
+        $users = $usersModel->findEntiere();
+        $candidatures = $candidaturesModel->findEntiere();
+        $localites = $localitesModel->findAll();
+        $secteurs = $secteursModel->findAll();
+        $this->render("main/manage.tpl", compact('users','localites','secteurs', 'candidatures'));
+
+
+        if(Form::validate($_POST,['loc_nom','loc_cp'])){
+            $nom = strip_tags($_POST['loc_nom']);
+            $cp = strip_tags($_POST['loc_cp']);
+            $model = new LocalitesModel;
+            $model->hydrate(compact('nom','cp'));
+            $model->insert();
+        }
+        if(Form::validate($_POST,['sec_nom'])){
+            $nom = strip_tags($_POST['sec_nom']);
+            $model = new SecteursModel;
+            $model->hydrate(compact('nom'));
+            $model->insert();
+        }
+    }
+
+    /**
+     * cv
+     */
+    function cv($id){
+        $candidature = new CandidaturesModel;
+        $c = $candidature->find($id);
+        $cv = $c->cvData;
+        header("Content-type:application/pdf");
+        echo $cv;
     }
 }

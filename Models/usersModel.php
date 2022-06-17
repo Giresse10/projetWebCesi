@@ -213,6 +213,15 @@ class usersModel extends Model{
         $ml = strtolower($preno) . "." . strtolower($no) . "@" . $dn . ".fr";
         return $ml;
     }
+    /**
+     * 
+     */
+    function findEntiere() {
+        return $this->q("SELECT u.*, s.nom AS status, f.nom as filiere, c.nom as centre
+        FROM {$this->table} u INNER JOIN `status` s ON u.idStatus = s.id 
+        INNER JOIN `centre` c ON u.idCentre = c.id
+        INNER JOIN `filiere` f ON u.idFiliere = f.id")->fetchAll();
+    }
     //Login
     function findSomeOne($id){
         return $this->q("SELECT * FROM {$this->table} WHERE email=? OR pseudo=?", [$id, $id])->fetch();

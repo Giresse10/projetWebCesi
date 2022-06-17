@@ -171,8 +171,29 @@ class OffresDeStageController extends Controller {
      */
     public function edit($id){
         $offresModel = new OffresDeStageModel;
+        $competencesModel = new CompetencesModel;
+        $compet = new OffresXCompetencesModel;
         $offre = $offresModel->findOne($id);
-        $this->render('offres/edit.tpl', compact('offre'));
+        $competences = $competencesModel->findAll();
+        $cp =$compet->findComp($id);
+        $offre->competences = $cp;
+        
+        if(Form::validate($_POST,array('edit'))){
+            $titre = strip_tags($_POST['titre']??$offre->titre);
+            $description = strip_tags($_POST['description']??$offre->description);
+            $comp = strip_tags($_POST['comp']??false);
+            $nbPlaces = strip_tags($_POST['nbplaces']??$offre->nbPlaces);
+            $date = strip_tags($_POST['date']??$offre->date);
+            $duree = strip_tags($_POST['duree']??$offre->duree);
+            $baseDeRemuneration = strip_tags($_POST['base']??$offre->baseDeRemuneration);
+            $model = new OffresDeStageModel;
+            $model = $model->hydrate(compact('titre','description','duree','baseDeRemuneration','date','nbPlaces'));
+            $offresModel->update($id,$model);
+            http_response_code(301);
+            header("Location:/offres-de-stage/lire/$id");
+        }
+
+        $this->render('offres/edit.tpl', compact('offre','competences'));
     }
     /**
      * apply

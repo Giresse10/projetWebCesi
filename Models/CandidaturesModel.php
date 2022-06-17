@@ -154,14 +154,13 @@ class CandidaturesModel extends Model{
         }else{
             return false;
         }
-    }  
+    }
     /**
      * 
      */
-    function setSession($status){
-        $_SESSION['candidature']['idOffre'] = $this->idOffresDeStage;
-        $_SESSION['candidature']['idUser'] = $this->idUser;
-        $_SESSION['candidature']['status'] = $status;
+    function findEntiere() {
+        return $this->q("SELECT c.*, u.nom AS cnom, u.prenom AS cprenom, o.titre as offre
+        FROM {$this->table} c INNER JOIN `users` u ON c.idUser = u.id INNER JOIN `offresdestage` o ON c.idOffresDeStage = o.id")->fetchAll();
     }
     
 }
