@@ -56,5 +56,16 @@ class OffresXCompetencesModel extends Model{
     function findComp($id){
         return $this->q("SELECT c.nom FROM {$this->table} x JOIN competences c ON x.idCompetences = c.id WHERE x.idOffresDeStage = ?", [$id])->fetchAll();
     }
+    /**
+     * remove
+     */
+    function remove() {
+        if($this->findBy(['idOffresDeStage'=>$this->idOffresDeStage])){
+            $this->delete(['idOffresDeStage'=>$this->idOffresDeStage]);
+            return true;
+        }else{
+            return false;
+        }        
+    }
 
 }

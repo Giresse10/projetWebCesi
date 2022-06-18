@@ -30,7 +30,7 @@
                             <button class="btn border-0 followStatus"><i class="fa-regular fa-heart"></i></button>
                         </form>
                     {/if}
-                    {if true}
+                    {if $smarty.session.user.status neq 4}
                         <div>
                             <div class="dropdown">
                                 <a href="#" role="button" id="dropdownMenuEditor" data-bs-toggle="dropdown" aria-expanded="false">

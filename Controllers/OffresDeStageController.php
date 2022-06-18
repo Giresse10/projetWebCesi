@@ -189,6 +189,26 @@ class OffresDeStageController extends Controller {
             $model = new OffresDeStageModel;
             $model = $model->hydrate(compact('titre','description','duree','baseDeRemuneration','date','nbPlaces'));
             $offresModel->update($id,$model);
+            //competences
+            //conserver les competences
+            $lstComptence = $comp?$comp:"";
+            $lstComptence = explode(", ",$lstComptence);
+            $competencesModel = new CompetencesModel;
+            $offresXCompetencesModel = new OffresXCompetencesModel;
+            if($comp){
+                $offresXCompetencesModel->hydrate(['idOffresDeStage'=>$id]);
+                $offresXCompetencesModel->remove();
+            }
+            foreach($lstComptence as $l){
+                if($l!=""){
+                $l = str_replace(',',"",$l);
+                $competencesModel->hydrate(['nom' => $l]);
+                $competencesModel->create();
+                $idCompetences = $competencesModel->findBy(['nom' => $l])[0]->id;
+                $idOffresDeStage = $id;
+                $offresXCompetencesModel->hydrate(compact('idCompetences','idOffresDeStage'));
+                $offresXCompetencesModel->create();}
+            }
             http_response_code(301);
             header("Location:/offres-de-stage/lire/$id");
         }

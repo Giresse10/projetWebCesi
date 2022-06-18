@@ -16,7 +16,7 @@
         {else}
             <a role="button" href="/offres-de-stage/apply/{$offre->id}" class="btn btn-primary">Postuler</a>
         {/if}
-        {if true}
+        {if $smarty.session.user.status neq 4}
             <div>
                 <div class="dropdown">
                     <a href="#" role="button" id="dropdownMenuEditor" data-bs-toggle="dropdown" aria-expanded="false">

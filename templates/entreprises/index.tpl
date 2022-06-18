@@ -11,7 +11,7 @@
                 {********** titre de l'offre *******}
                 <div class="d-flex justify-content-between">
                     <h3>{$e->nom}</h3>
-                    {if true}
+                    {if $smarty.session.user.status neq 4}
                         <div>
                             <div class="dropdown">
                                 <a href="#" role="button" id="dropdownMenuEditor" data-bs-toggle="dropdown" aria-expanded="false">

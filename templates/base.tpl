@@ -69,8 +69,10 @@
                     {*************             Users info           *****************}
                     <div class="d-flex justify-content-end">
                         <ul class="nav mx-auto">
+                        {if isset($smarty.session.user) and $smarty.session.user.status neq 4}
                             <li class="nav-item"><a href="/main/manage" class="nav-link"><i class="fa-solid fa-list-check text-dark"></i></a></li>
                             <li class="nav-item"><a href="/create" class="nav-link"><i class="fa-solid fa-circle-plus text-dark"></i></a></li>
+                        {/if}
                             <li class="nav-item"><a href="/users/notif" class="nav-link"><i class="fa-solid fa-bell text-dark"></i></a></li>
                             <li class="nav-item">
                             {***************user menu ***************}

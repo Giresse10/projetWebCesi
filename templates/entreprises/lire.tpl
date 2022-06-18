@@ -25,7 +25,7 @@
                         class="text-muted">{$entreprise->nbStagiaires}</span>
                 </p>
             </div>
-            {if true}
+            {if $smarty.session.user.status neq 4}
                 <div>
                     <div class="dropdown">
                         <a href="#" role="button" id="dropdownMenuEditor" data-bs-toggle="dropdown" aria-expanded="false">
@@ -46,8 +46,6 @@
 
                     
                 </div>
-            {else}
-                ok
             {/if}
             <div class="position-relative" id="evalGroup">
                 <input type="button" class="btn btn-warning text-light" value="evaluer" id="btnEvaluer" />
@@ -138,10 +136,10 @@
     </div>
     {*******************************************************}
 </div>
-    {var_dump($entreprise)}
+    {*var_dump($entreprise)}
     {var_dump($localites)}
     {var_dump($avis)}
-    {var_dump($offres)}
+    {var_dump($offres)*}
 {/block}
 
 {block name="script"}
