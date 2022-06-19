@@ -49,8 +49,8 @@
                         <ul class="nav nav-tabs justify-content-center" id="userTab">
                             <li class="nav-item"><a class="nav-link active" role="button">tous</a>
                             <li class="nav-item"><a class="nav-link" role="button">admin</a>
-                            <li class="nav-item"><a class="nav-link" role="button">delegué</a>
                             <li class="nav-item"><a class="nav-link" role="button">pilote</a>
+                            <li class="nav-item"><a class="nav-link" role="button">delegué</a>
                             <li class="nav-item"><a class="nav-link" role="button">étudiant</a>
                         </ul>
                         </div>

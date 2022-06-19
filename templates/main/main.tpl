@@ -47,9 +47,10 @@
         </div>
         {**************}
         <div class="col-md-3 col-xs-12">
+            <div class="shadow rounded p-3 text-center border">
+            Campus d’enseignement supérieur et de formation professionnelle, CESI poursuit sa mission sociétale en permettant à des étudiants, alternants et salariés de devenir acteurs des transformations des entreprises et de la société, grâce à ses écoles et activités.
+            </div>
             <div class="shadow rounded p-2">
-                <img src="https://www.cesi.fr/wp-content/themes/cesi/static/logo/default.svg" width="200" height="55"
-                    class="m-2" alt="CESI, Campus d'enseignement supérieur et de formation professionnelle">
                 <ul class="nav nav-flex flex-column rounded border shadow mb-2" style="background-color: rgba(0, 0, 0, 1);">
                     <li class="nav-item border-bottom border-white"><a class="nav-link text-white"
                             href="https://www.cesi.fr/">CESI</a></li>
@@ -62,9 +63,6 @@
                     <li class="nav-item"><a class="nav-link text-white"
                             href="https://www.cesi.fr/international/">International</a></li>
                 </ul>
-            </div>
-            <div class="shadow rounded p-3 text-center border">
-            Campus d’enseignement supérieur et de formation professionnelle, CESI poursuit sa mission sociétale en permettant à des étudiants, alternants et salariés de devenir acteurs des transformations des entreprises et de la société, grâce à ses écoles et activités.
             </div>
         </div>
     </div>
