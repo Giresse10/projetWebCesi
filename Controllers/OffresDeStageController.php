@@ -167,7 +167,7 @@ class OffresDeStageController extends Controller {
         $this->render('offres/register.tpl',compact('f'));
     }
     /**
-     * edit
+     * edit gere la page de modification
      */
     public function edit($id){
         $offresModel = new OffresDeStageModel;

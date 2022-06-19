@@ -91,4 +91,52 @@ class EntreprisesController extends Controller{
             $model->rate();
         }
     }
+    /**
+     * edit gere la page de modification
+     */
+    public function edit($id){
+        $entreprisesModel = new EntreprisesModel;
+        $compet = new EntreprisesXlocalitesModel;
+        $offre = $entreprisesModel->findOne($id);
+        $competences = $competencesModel->findAll();
+        $cp =$compet->findComp($id);
+        $offre->competences = $cp;
+        
+        if(Form::validate($_POST,array('edit'))){
+            $titre = strip_tags($_POST['titre']??$offre->titre);
+            $description = strip_tags($_POST['description']??$offre->description);
+            $comp = strip_tags($_POST['comp']??false);
+            $nbPlaces = strip_tags($_POST['nbplaces']??$offre->nbPlaces);
+            $date = strip_tags($_POST['date']??$offre->date);
+            $duree = strip_tags($_POST['duree']??$offre->duree);
+            $baseDeRemuneration = strip_tags($_POST['base']??$offre->baseDeRemuneration);
+            $model = new OffresDeStageModel;
+            $model = $model->hydrate(compact('titre','description','duree','baseDeRemuneration','date','nbPlaces'));
+            $entreprisesModel->update($id,$model);
+            //competences
+            //conserver les competences
+            $lstComptence = $comp?$comp:"";
+            $lstComptence = explode(", ",$lstComptence);
+            $competencesModel = new CompetencesModel;
+            $offresXCompetencesModel = new OffresXCompetencesModel;
+            if($comp){
+                $offresXCompetencesModel->hydrate(['idOffresDeStage'=>$id]);
+                $offresXCompetencesModel->remove();
+            }
+            foreach($lstComptence as $l){
+                if($l!=""){
+                $l = str_replace(',',"",$l);
+                $competencesModel->hydrate(['nom' => $l]);
+                $competencesModel->create();
+                $idCompetences = $competencesModel->findBy(['nom' => $l])[0]->id;
+                $idOffresDeStage = $id;
+                $offresXCompetencesModel->hydrate(compact('idCompetences','idOffresDeStage'));
+                $offresXCompetencesModel->create();}
+            }
+            http_response_code(301);
+            header("Location:/offres-de-stage/lire/$id");
+        }
+
+        $this->render('entreprises/edit.tpl', compact('offre','competences'));
+    }
 }
