@@ -43,13 +43,16 @@ class OffresDeStageController extends Controller {
         $compet = new OffresXCompetencesModel;
         $avisModel = new AvisEntreprisesModel;
         $offre = $offresModel->findOne($id);
-        $avis = $avisModel->findNotice($offre->idEntreprise);
-        $moyenne = $avisModel->mean($offre->idEntreprise);
-        $c = $candidature->hydrate(['idOffresDeStage'=>$offre->id, 'idUser'=>$_SESSION['user']['id']]);
-        $c = $candidature->findSelfApply();
-        $cp =$compet->findComp($id);
-        $offre->is_apply = $c;
-        $offre->competences = $cp;
+        $moyenne = $avis = "";
+        if($offre){
+            $avis = $avisModel->findNotice($offre->idEntreprise);
+            $moyenne = $avisModel->mean($offre->idEntreprise);
+            $c = $candidature->hydrate(['idOffresDeStage'=>$offre->id, 'idUser'=>$_SESSION['user']['id']]);
+            $c = $candidature->findSelfApply();
+            $cp =$compet->findComp($id);
+            $offre->is_apply = $c;
+            $offre->competences = $cp;
+        }
         $this->render('offres/lire.tpl', compact('offre', 'moyenne', 'avis'));
     }
     /**

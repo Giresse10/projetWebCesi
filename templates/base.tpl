@@ -17,7 +17,7 @@
 </head>
 
 <body>
-
+    {if isset($smarty.session.user)}
     <div id="loader-start">
         <div id="loader-in">
             <div class="spinner-border p-5" role="status">
@@ -125,6 +125,9 @@
     <script src="/assets/js/main.js"></script>
     {block name="script"}
     {/block}
+    {else}
+        {include file="main/login.tpl"}
+    {/if}
 </body>
 
 </html>

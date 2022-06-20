@@ -112,7 +112,6 @@
         </div>
     </div>
 </div>
-{*var_dump($offre)*}
 {else}
     <h2 class="text-muted mt-5 text-center">Oops! item not found</h2>
     <a class="nav-link text-center" href="/offres-de-stage">Go back to items page </a>

@@ -87,20 +87,19 @@ class UsersController extends Controller{
     public function notif() {
         $candidature = new CandidaturesModel;
         $offresModel = new OffresDeStageModel;
-        $offres = $offresModel->findEntiere();
         //liste des offres dans wishlist
         if(isset($_SESSION['user'])){
             $candidature->hydrate(array('idUser'=>$_SESSION['user']['id']));
             $apply = $candidature->findHalf();
         }
-        $this->render('users/notif.tpl', ['apply'=>$apply]);
+        $this->render('users/notif.tpl', ['apply'=>$apply??'']);
     }
     /**
      * page de parametre du compte
      */
     public function profil() {
         $usersModel = new UsersModel;
-        $user = $usersModel->findSomeOne($_SESSION['user']['email']);
+        $user = $usersModel->findSomeOne($_SESSION['user']['email']??0);
         $this->render('users/profil.tpl',compact('user'));
     }
     /**
