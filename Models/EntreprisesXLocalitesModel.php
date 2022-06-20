@@ -47,5 +47,22 @@ class EntreprisesXLocalitesModel extends Model{
     function findHow($id){
         return $this->q("SELECT count(*) as nb FROM {$this->table} WHERE idEntreprises = ?", [$id])->fetch();
     }
+    /**
+      * insert
+      */
+      function insert() {
+        if(!$this->findBy(['idEntreprises'=>$this->idEntreprises, 'idLocalites'=>$this->idLocalites])){
+            $this->create();
+            return true;
+        }else{
+            return false;
+        }
+    }
+     /**
+     * Competences
+     */
+    function findCrossed($id){
+        return $this->q("SELECT l.id FROM {$this->table} x JOIN localites l ON x.idLocalites = l.id WHERE x.idEntreprises = ?", [$id])->fetchAll();
+    }
 
 }

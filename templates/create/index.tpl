@@ -1,6 +1,8 @@
 {extends file="../base.tpl"}
 {block name="style"}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/css/bootstrap-select.min.css" integrity="sha512-mR/b5Y7FRsKqrYZou7uysnOdCIJib/7r5QeJMFvLNHNhtye3xJp1TdJVPLtetkukFn227nKpXD9OjUc09lx97Q==" crossorigin="anonymous"
+  referrerpolicy="no-referrer" />
 {/block}
 {block name="title"}
     creation
@@ -115,8 +117,8 @@
                     </div>
                     <div class="col-12">
                         <label for="entrepriseLoc" class="form-label">localité(s) </label>
-                        <select class="form-select" aria-label="Default select example" id="entrepriseLoc" name="entreprise_localite">
-                            <option selected>localité(s)</option>
+                        <select class="selectpicker" aria-label="Default select example" id="entrepriseLoc" name="entreprise_localite[]" multiple>
+                            <option selected disabled>choix de localité(s)</option>
                             {foreach $localites as $l}
                             <option value="{$l->id}">{$l->nom} - {$l->cp}</option>
                             {/foreach}
@@ -196,7 +198,8 @@
 
 {block name="script"}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js" integrity="sha512-FHZVRMUW9FsXobt+ONiix6Z0tIkxvQfxtCSirkKc5Sb4TKHmqq1dZa8DphF0XqKb3ldLu/wgMa8mT6uXiLlRlw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
 $( function() {
 var availableTags = [
 {foreach $competences as $c}

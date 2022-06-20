@@ -98,9 +98,9 @@ class EntreprisesModel extends Model{
     /**
      * One
      */
-    function findOne() {
-        $sql = "SELECT e.*, s.nom AS secteur FROM {$this->table} e INNER JOIN `secteurs` s ON e.idSecteur = s.id WHERE e.id = {$this->id}";
-        return $this->q($sql)->fetch();
+    function findOne($id) {
+        $sql = "SELECT e.*, s.nom AS secteur FROM {$this->table} e INNER JOIN `secteurs` s ON e.idSecteur = s.id WHERE e.id = ?";
+        return $this->q($sql,[$id])->fetch();
     }
     /**
      * find one items

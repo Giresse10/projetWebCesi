@@ -5,7 +5,9 @@ use App\Core\Form;
 use App\Models\AvisEntreprisesModel;
 use App\Models\EntreprisesModel;
 use App\Models\EntreprisesXLocalitesModel;
+use App\Models\LocalitesModel;
 use App\Models\OffresDeStageModel;
+use App\Models\SecteursModel;
 
 class EntreprisesController extends Controller{
     public function index(){
@@ -26,14 +28,16 @@ class EntreprisesController extends Controller{
         if(Form::validate($_POST, ['entreprise_nom','entreprise_secteur','entreprise_localite'])){
             $nom = strip_tags($_POST['entreprise_nom']);
             $idSecteur = strip_tags($_POST['entreprise_secteur']);
-            $idLocalites = strip_tags($_POST['entreprise_localite']);
+            $lstidLocalites = $_POST['entreprise_localite'];
             $model = new EntreprisesModel;
             $entreprise = $model->hydrate(compact('nom','idSecteur'));
             $idEntreprises = $model->register();
             if($idEntreprises){
                 $exl = new EntreprisesXLocalitesModel;
-                $exl->hydrate(compact('idLocalites','idEntreprises'));
-                $exl->create();
+                foreach($lstidLocalites as $idLocalites){
+                    $exl->hydrate(compact('idLocalites','idEntreprises'));
+                    $exl->insert();
+                }
                 $_SESSION['state']['type'] = 'entreprise';
                 $_SESSION['state']['status'] = true;
                 $_SESSION['state']['nom'] = $nom;
@@ -57,7 +61,7 @@ class EntreprisesController extends Controller{
         $offresModel = new OffresDeStageModel;
         $model->hydrate(compact('id'));
         $localites = $exl->findWhere($id);
-        $entreprise = $model->findOne();
+        $entreprise = $model->findOne($id);
         $moyenne = $avisModel->mean($id);
         $avis = $avisModel->findNotice($id);
         $offres = $model->findItems();
@@ -96,47 +100,35 @@ class EntreprisesController extends Controller{
      */
     public function edit($id){
         $entreprisesModel = new EntreprisesModel;
-        $compet = new EntreprisesXlocalitesModel;
-        $offre = $entreprisesModel->findOne($id);
-        $competences = $competencesModel->findAll();
-        $cp =$compet->findComp($id);
-        $offre->competences = $cp;
+        $entrepriseLocalite = new EntreprisesXlocalitesModel;
+        $localitesModel = new LocalitesModel;
+        $secteursModel = new SecteursModel;
+        $entreprise = $entreprisesModel->findOne($id);
+        $localites = $localitesModel->findAll();
+        $secteurs = $secteursModel->findAll();
+        $lstLocalites = $entrepriseLocalite->findCrossed($id);
+        $entreprise->lstLocalites = $lstLocalites;
         
         if(Form::validate($_POST,array('edit'))){
-            $titre = strip_tags($_POST['titre']??$offre->titre);
-            $description = strip_tags($_POST['description']??$offre->description);
-            $comp = strip_tags($_POST['comp']??false);
-            $nbPlaces = strip_tags($_POST['nbplaces']??$offre->nbPlaces);
-            $date = strip_tags($_POST['date']??$offre->date);
-            $duree = strip_tags($_POST['duree']??$offre->duree);
-            $baseDeRemuneration = strip_tags($_POST['base']??$offre->baseDeRemuneration);
-            $model = new OffresDeStageModel;
-            $model = $model->hydrate(compact('titre','description','duree','baseDeRemuneration','date','nbPlaces'));
+            $nom = strip_tags($_POST['nom']??$entreprise->nom);
+            $idSecteur = strip_tags($_POST['secteur']??$entreprise->idSecteur);
+            $lstidLocalites = $_POST['localites']??false;
+            $model = new EntreprisesModel;
+            $model = $model->hydrate(compact('nom','idSecteur'));
             $entreprisesModel->update($id,$model);
-            //competences
-            //conserver les competences
-            $lstComptence = $comp?$comp:"";
-            $lstComptence = explode(", ",$lstComptence);
-            $competencesModel = new CompetencesModel;
-            $offresXCompetencesModel = new OffresXCompetencesModel;
-            if($comp){
-                $offresXCompetencesModel->hydrate(['idOffresDeStage'=>$id]);
-                $offresXCompetencesModel->remove();
-            }
-            foreach($lstComptence as $l){
-                if($l!=""){
-                $l = str_replace(',',"",$l);
-                $competencesModel->hydrate(['nom' => $l]);
-                $competencesModel->create();
-                $idCompetences = $competencesModel->findBy(['nom' => $l])[0]->id;
-                $idOffresDeStage = $id;
-                $offresXCompetencesModel->hydrate(compact('idCompetences','idOffresDeStage'));
-                $offresXCompetencesModel->create();}
+            //localites
+            $entreprisesXlocalites = new EntreprisesXLocalitesModel;
+            if($lstidLocalites){
+                $idEntreprises = $id;
+                foreach($lstidLocalites as $idLocalites){
+                    $entreprisesXlocalites->hydrate(compact('idLocalites','idEntreprises'));
+                    $entreprisesXlocalites->insert();
+                }
             }
             http_response_code(301);
-            header("Location:/offres-de-stage/lire/$id");
+            header("Location:/entreprises/lire/$id");
         }
 
-        $this->render('entreprises/edit.tpl', compact('offre','competences'));
+        $this->render('entreprises/edit.tpl', compact('entreprise','localites','secteurs'));
     }
 }

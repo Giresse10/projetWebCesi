@@ -95,5 +95,12 @@ class AvisEntreprisesModel extends Model{
         $result = $this->q($sql)->fetch();
         return $result;
     }
+    /**
+     * entiere 
+     */
+    function findEntiere() {
+        return $this->q("SELECT a.*, CONCAT(u.prenom, ' ', u.nom) AS user, e.nom as entreprise FROM {$this->table} a
+         INNER JOIN `users` u ON a.idUsers = u.id INNER JOIN entreprises e ON a.idEntreprises = e.id WHERE u.idStatus != 1")->fetchAll();
+    }
 
 }
