@@ -15,7 +15,7 @@ wishlist
             {********** apply *****************************}
             <span class="text-success"><i class="fa-solid fa-check-double"></i></span>     
         </div>
-        <div onclick="javascript:window.location.href='/candidatures/lire/{$f->id}'">
+        <div onclick="javascript:window.location.href='/offres-de-stage/lire/{$f->id}'">
             {****  entreprise ***************}
             <div class="entreprise">
                 <span class="fw-bold">{$f->entreprise}</span>

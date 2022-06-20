@@ -87,6 +87,11 @@ class MainController extends Controller{
     function cv($id){
         $candidature = new CandidaturesModel;
         $c = $candidature->find($id);
+        if($candidature->findBy(['hasChecked'=>0])){
+            $model = new CandidaturesModel;
+            $model->setHasChecked(1);
+            $candidature->update($c->id, $model);
+        }
         $cv = $c->cvData;
         header("Content-type:application/pdf");
         echo $cv;

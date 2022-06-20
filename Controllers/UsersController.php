@@ -1,6 +1,8 @@
 <?php
 namespace App\Controllers;
 use App\Core\Form;
+use App\Models\CandidaturesModel;
+use App\Models\OffresDeStageModel;
 use App\Models\usersModel;
 use App\Models\StatusModel;
 
@@ -83,7 +85,15 @@ class UsersController extends Controller{
      * page de notifications
      */
     public function notif() {
-        $this->render('users/notif.tpl');
+        $candidature = new CandidaturesModel;
+        $offresModel = new OffresDeStageModel;
+        $offres = $offresModel->findEntiere();
+        //liste des offres dans wishlist
+        if(isset($_SESSION['user'])){
+            $candidature->hydrate(array('idUser'=>$_SESSION['user']['id']));
+            $apply = $candidature->findHalf();
+        }
+        $this->render('users/notif.tpl', ['apply'=>$apply]);
     }
     /**
      * page de parametre du compte

@@ -12,6 +12,7 @@ class CandidaturesModel extends Model{
     protected $lmData;
     protected $lmText;
     protected $createdAt;
+    protected $hasChecked;
 
     public function __construct(){
         $this->table = str_replace('Model', '', str_replace(__NAMESPACE__.'\\','',__CLASS__));
@@ -71,6 +72,12 @@ class CandidaturesModel extends Model{
      */
     function getCreatedAt() {
         return $this->createdAt;
+    }
+    /**
+     * created at
+     */
+    function getHasChecked() {
+        return $this->hasChecked;
     }
     //Setters
     /**
@@ -136,6 +143,13 @@ class CandidaturesModel extends Model{
         $this->password = $create;
         return $this;
     }
+    /**
+     * set hasChecked
+     */
+    function setHasChecked($check){
+        $this->hasChecked = $check;
+        return $this;
+    }
      //Registers
     function save() {
         if(!$this->findBy(['idOffresDeStage'=>$this->idOffresDeStage,'idUser'=>$this->idUser])){
@@ -161,6 +175,13 @@ class CandidaturesModel extends Model{
     function findEntiere() {
         return $this->q("SELECT c.*, u.nom AS cnom, u.prenom AS cprenom, o.titre as offre
         FROM {$this->table} c INNER JOIN `users` u ON c.idUser = u.id INNER JOIN `offresdestage` o ON c.idOffresDeStage = o.id")->fetchAll();
+    }
+    /**
+     * 
+     */
+    function findHalf() {
+        return $this->q("SELECT c.hasChecked, o.titre as offre
+        FROM {$this->table} c INNER JOIN `offresdestage` o ON c.idOffresDeStage = o.id WHERE idUser = ? ORDER BY c.id DESC",[$this->idUser])->fetchAll();
     }
     
 }

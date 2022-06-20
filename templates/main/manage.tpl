@@ -42,7 +42,7 @@
                     <div class="el" id="users">
                         <div class="d-flex justify-content-between m-3">
                         {********* search *************}
-                            <div class="border border-primary rounded">
+                            <div class="border border-primary rounded" style="height:40px">
                                 <input type="text" class="form-control" name="q" placeholder="rechercher..." id="btnUserSearch" value=""/>
                             </div>
                         <ul class="nav nav-tabs justify-content-center" id="userTab">
