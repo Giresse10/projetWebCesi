@@ -41,11 +41,10 @@
                 {********** utilisateur *********}
                     <div class="el" id="users">
                         <div class="d-flex justify-content-between m-3">
-                        <form>
+                        {********* search *************}
                             <div class="border border-primary rounded">
-                                <input type="text" class="form-control" name="q" placeholder="rechercher..."/>
+                                <input type="text" class="form-control" name="q" placeholder="rechercher..." id="btnUserSearch" value=""/>
                             </div>
-                        </form>
                         <ul class="nav nav-tabs justify-content-center" id="userTab">
                             <li class="nav-item"><a class="nav-link active" role="button">tous</a>
                             <li class="nav-item"><a class="nav-link" role="button">admin</a>
@@ -55,7 +54,7 @@
                         </ul>
                         </div>
                         <div>
-                        <table class="table">
+                        <table class="table" id="UsersTable">
                         <thead>
                           <tr>
                             <th scope="col">#</th>
