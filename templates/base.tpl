@@ -107,7 +107,10 @@
     </header>
 
     <main class="container">
-    <button id="install_button" class="btn" hidden>installer l'application</button>
+    <div class="fixed-bottom" id="btnSW">
+        <a id="install_button" class="nav-link text-center" hidden role="button">installer l'application</a>
+    </div>
+    <div>
     {*********** search bar/small and medium screen***********}
     <div class="mx-1 mt-3" id="headSearch2">
         <form>
