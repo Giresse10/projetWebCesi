@@ -1,0 +1,31 @@
+{
+    "name": "proton",
+    "short_name": "Proton-Cesi-connect",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#c0c0c0",
+    "description": "plateforme scolaire pour les etudiant du zeci",
+    "theme_color": "#db4938",
+    "orientation": "portrait-primary",
+    "icons": [{
+      "src": "assets/img/icons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    }, {
+      "src": "assets/img/icons/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }, {
+      "src": "assets/img/icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+],
+    "related_applications": [{
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=cheeaun.hackerweb"
+    }],
+    "prefer_related_applications": false
+  }

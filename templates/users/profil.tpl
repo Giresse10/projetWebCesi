@@ -32,7 +32,7 @@ Profil
         cv
     </div>
 </div>
-{var_dump($user)}
+{*var_dump($user)*}
 {/block}
 {else}
     {block name="content"}

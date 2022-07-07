@@ -14,6 +14,15 @@
     <base href="{$smarty.server.HTTP_HOST}">
     <link rel="stylesheet" href="/assets/css/style.css">
     <title>{block name="title"}Default Title{/block}</title>
+     <link rel="stylesheet" href="/assets/css/style.css">
+     <link rel="shortcut icon" href="/assets/img/icons/favicon.ico">
+    <link rel="manifest" crossorigin="use-credentials" href="/manifest.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/icons/favicon-16x16.png">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
 </head>
 
 <body>
@@ -98,6 +107,7 @@
     </header>
 
     <main class="container">
+    <button id="install_button" class="btn" hidden>installer l'application</button>
     {*********** search bar/small and medium screen***********}
     <div class="mx-1 mt-3" id="headSearch2">
         <form>
