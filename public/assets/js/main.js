@@ -1,4 +1,4 @@
-$('#btnSW').hide()
+
 $(window).on("load", function(event) {
     $("#loader-start").fadeOut("slow");
   });
@@ -24,6 +24,7 @@ $(window).on("load", function(event) {
       if (choiceResult.outcome === "accepted") {
         console.log("PWA setup accepted");
         installButton.hidden = true;
+        $('#btnSW').addClass('d-none')
       } else {
         console.log("PWA setup rejected");
       }
@@ -48,7 +49,7 @@ $(window).on("load", function(event) {
     deferredPrompt = e;
     // Show the install button
     installButton.hidden = false;
-    $('#btnSW').show()
+    $('#btnSW').removeClass('d-none')
     installButton.addEventListener("click", installApp);
 });
 
