@@ -107,8 +107,9 @@
     </header>
 
     <main class="container">
-    <div class="fixed-bottom" id="btnSW">
-        <a id="install_button" class="nav-link text-center" hidden role="button">installer l'application</a>
+    <div class="alert alert-light alert-dismissible fade show fixed-bottom" role="alert" id="btnSW">
+        <a id="install_button" class="nav-link text-center text-primary" hidden role="button">installer l'application</a>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     <div>
     {*********** search bar/small and medium screen***********}
