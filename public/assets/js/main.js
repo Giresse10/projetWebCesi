@@ -1,3 +1,4 @@
+$('#btnSW').hide()
 $(window).on("load", function(event) {
     $("#loader-start").fadeOut("slow");
   });
@@ -47,6 +48,7 @@ $(window).on("load", function(event) {
     deferredPrompt = e;
     // Show the install button
     installButton.hidden = false;
+    $('#btnSW').show()
     installButton.addEventListener("click", installApp);
 });
 
