@@ -3,7 +3,7 @@ $(window).on("load", function(event) {
     $("#loader-start").fadeOut("slow");
   });
 
-  if ("serviceWorker" in navigator) {
+ /* if ("serviceWorker" in navigator) {
     navigator.serviceWorker
       .register("sw.js")
       .then(serviceWorker => {
@@ -13,7 +13,7 @@ $(window).on("load", function(event) {
         console.error("Error registering the Service Worker: ", error);
       });
   }
-  /****************************************************************/
+  / **************************************************************** /
   function installApp() {
     // Show the prompt
     deferredPrompt.prompt();
@@ -37,7 +37,7 @@ $(window).on("load", function(event) {
     console.log("appinstalled fired", evt);
   });
 
-  /****************************************************************/
+  / **************************************************************** /
     let deferredPrompt; // Allows to show the install prompt
     const installButton = document.getElementById("install_button");
 
@@ -52,7 +52,7 @@ $(window).on("load", function(event) {
     $('#btnSW').removeClass('d-none')
     installButton.addEventListener("click", installApp);
 });
-
+*/
 $(
     ()=>{
         $('#createEntrepriseForm').hide();
